@@ -1,0 +1,15 @@
+#version: '3.8'
+#
+#services:
+#  db:
+#    image: choose
+#    container_name: db
+#    restart: always
+#    ports:
+#      - ""
+#
+#  bank_server:
+#
+#  cash_manager_app:
+#
+#  cash_manager_interface:
