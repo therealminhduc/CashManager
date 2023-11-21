@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="adf8d47e-045e-40f5-ac57-c65501e32d02" name="Changes" comment="dev init">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/user/User.java" afterDir="false" />
     </list>
-    <list id="62bd6733-870e-4a8a-a25e-e7e3e44ac053" name="A pas commit" comment="init bank server">
-      <change afterPath="$PROJECT_DIR$/.idea/T-DEV-700-PAR_20.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-    </list>
+    <list id="62bd6733-870e-4a8a-a25e-e7e3e44ac053" name="A pas commit" comment="init bank server" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,7 +67,7 @@
       <updated>1700490469232</updated>
       <workItem from="1700490472002" duration="3623000" />
       <workItem from="1700494536582" duration="662000" />
-      <workItem from="1700518632040" duration="3398000" />
+      <workItem from="1700518632040" duration="3581000" />
     </task>
     <task id="LOCAL-00001" summary="readme kotlin">
       <option name="closed" value="true" />
