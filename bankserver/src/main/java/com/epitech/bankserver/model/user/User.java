@@ -1,11 +1,12 @@
 package com.epitech.bankserver.model.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Data
+@Document("user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -16,7 +17,8 @@ public class User {
     private String id;
     private String firstName;
     private String lastName;
-    private String email; //format a@a.com
+    @Indexed(unique = true)
+    private String email;
     private String password;
 
 }

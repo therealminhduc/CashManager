@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="adf8d47e-045e-40f5-ac57-c65501e32d02" name="Changes" comment="dev init">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bankserver/compose.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bankserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/controller/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/controller/user/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bankserver/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
     </list>
     <list id="62bd6733-870e-4a8a-a25e-e7e3e44ac053" name="A pas commit" comment="init bank server" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,9 +59,30 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/bankserver" />
       <recent name="$PROJECT_DIR$/documentation" />
       <recent name="$PROJECT_DIR$/documentation/assets" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -67,7 +95,7 @@
       <updated>1700490469232</updated>
       <workItem from="1700490472002" duration="3623000" />
       <workItem from="1700494536582" duration="662000" />
-      <workItem from="1700518632040" duration="3581000" />
+      <workItem from="1700518632040" duration="6910000" />
     </task>
     <task id="LOCAL-00001" summary="readme kotlin">
       <option name="closed" value="true" />
