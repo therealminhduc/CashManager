@@ -8,4 +8,8 @@ import java.util.List;
 public interface AccountRepository extends MongoRepository<Account, String> {
 
     Account findAccountByAccountNumber(String accountNumber);
+
+    boolean existsAccountByAccountNumber(String accountNumber);
+
+    Account deleteAccountByAccountNumber(String accountNumber);
 }

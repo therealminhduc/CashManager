@@ -2,13 +2,13 @@ package com.epitech.bankserver.controller.account;
 
 import com.epitech.bankserver.model.account.Account;
 import com.epitech.bankserver.service.account.AccountService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -34,9 +34,23 @@ public class AccountController {
         }
     }
 
+//  we can set this admin-only request
+//    @PostMapping
+//    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
+//        Account createdAccount = accountService.createAccount(account);
+//        return new ResponseEntity<>(createdAccount, HttpStatus.CREATED);
+//    }
+
     @PostMapping
-    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-        Account createdAccount = accountService.createAccount(account);
+    public ResponseEntity<?> createAccountWithAccountOwnerAndBalance(@RequestBody Map<String, Object> requestBody) {
+        String accountOwner = (String) requestBody.get("accountOwner");
+        Integer balance = (Integer) requestBody.get("balance");
+
+        if (accountOwner == null || balance == null) {
+            return new ResponseEntity<>("Both 'accountOwner' and 'balance' must be provided", HttpStatus.BAD_REQUEST);
+        }
+
+        Account createdAccount = accountService.createAccountWithAccountOwnerAndBalance(accountOwner, balance);
         return new ResponseEntity<>(createdAccount, HttpStatus.CREATED);
     }
 
@@ -50,9 +64,9 @@ public class AccountController {
         return new ResponseEntity<>(updateAccount, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAccount(@PathVariable String id) {
-        accountService.deleteAccount(id);
+    @DeleteMapping("/{accountNumber}")
+    public ResponseEntity<Void> deleteAccountByAccountNumber(@PathVariable String accountNumber) {
+        accountService.deleteAccountByAccountNumber(accountNumber);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

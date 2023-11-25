@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="adf8d47e-045e-40f5-ac57-c65501e32d02" name="Changes" comment="dev init">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/BankserverApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/BankserverApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/controller/account/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/controller/account/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/account/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/account/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/creditcard/CreditCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/creditcard/CreditCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-    </list>
+    <list default="true" id="adf8d47e-045e-40f5-ac57-c65501e32d02" name="Changes" comment="dev init" />
     <list id="62bd6733-870e-4a8a-a25e-e7e3e44ac053" name="A pas commit" comment="init bank server" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +91,7 @@
       <workItem from="1700494536582" duration="662000" />
       <workItem from="1700518632040" duration="6910000" />
       <workItem from="1700928357066" duration="11000" />
+      <workItem from="1700928924502" duration="614000" />
     </task>
     <task id="LOCAL-00001" summary="readme kotlin">
       <option name="closed" value="true" />

@@ -1,7 +1,6 @@
 package com.epitech.bankserver.model.account;
 
 import com.epitech.bankserver.model.creditcard.CreditCard;
-import com.epitech.bankserver.model.user.User;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -17,6 +16,8 @@ public class Account {
 
     @Id
     private String id;
+
+    private String accountOwner;
 
     @Indexed(unique = true)
     private String accountNumber;
