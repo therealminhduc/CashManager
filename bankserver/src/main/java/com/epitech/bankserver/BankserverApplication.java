@@ -1,5 +1,7 @@
 package com.epitech.bankserver;
 
+import com.epitech.bankserver.repository.account.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +14,9 @@ import java.util.Arrays;
 @SpringBootApplication
 @RestController
 public class BankserverApplication {
+
+    @Autowired
+    AccountRepository accountRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(BankserverApplication.class, args);
