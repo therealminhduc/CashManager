@@ -1,6 +1,5 @@
 package com.epitech.bankserver.service.account;
 
-import com.epitech.bankserver.db.DatabaseService;
 import com.epitech.bankserver.model.account.Account;
 import com.epitech.bankserver.repository.account.AccountRepository;
 import lombok.AllArgsConstructor;
@@ -17,8 +16,6 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Autowired
-    private DatabaseService databaseService;
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
     }
