@@ -12,6 +12,12 @@ public class Product {
   private float price;
   private String code;
 
+  public Product(String name, float price, String code) {
+    this.name = name;
+    this.price = price;
+    this.code = code;
+  }
+
   public Product(String id, String name, float price, String code) {
     this.id = id;
     this.name = name;
