@@ -7,6 +7,10 @@ import com.epitech.bankserver.repository.account.AccountRepository;
 import com.epitech.bankserver.role.AccountRole;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +18,7 @@ import java.util.Random;
 
 @AllArgsConstructor
 @Service
-public class AccountService {
+public abstract class AccountService implements UserDetailsService {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -81,11 +85,16 @@ public class AccountService {
 
     /********************************************************************************/
 
-    public Admin createAdminAccount(String accountOwner, String username, String password) {
-        Admin admin = new Admin(accountOwner, username, password);
-
-        admin.setAccountNumber("000000");
-        admin.setRole(AccountRole.ADMIN);
-        return adminRepository.save(admin);
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Admin admin = adminRepository.findAdminByUsername(username);
+//
+//        if (admin == null) {
+//            throw new UsernameNotFoundException("Admin not found");
+//        }
+//
+//        return new User(
+//
+//        )
+//    }
 }

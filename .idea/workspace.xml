@@ -6,16 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="adf8d47e-045e-40f5-ac57-c65501e32d02" name="Changes" comment="dev init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/controller/user/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/db/DatabaseService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/exception/UserNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/creditcard/CreditCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/creditcard/CreditCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/model/user/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/repository/account/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/repository/account/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/repository/user/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/service/account/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/service/account/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bankserver/src/main/java/com/epitech/bankserver/service/user/UserService.java" beforeDir="false" />
     </list>
     <list id="62bd6733-870e-4a8a-a25e-e7e3e44ac053" name="A pas commit" comment="init bank server" />
     <option name="SHOW_DIALOG" value="false" />
@@ -106,6 +96,7 @@
       <workItem from="1700928924502" duration="614000" />
       <workItem from="1701010812877" duration="2220000" />
       <workItem from="1701040131689" duration="26000" />
+      <workItem from="1701474172477" duration="604000" />
     </task>
     <task id="LOCAL-00001" summary="readme kotlin">
       <option name="closed" value="true" />
