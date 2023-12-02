@@ -1,13 +1,13 @@
-package com.par20.cm_server;
+package com.epitech.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CmServerApplication {
+public class ServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CmServerApplication.class, args);
+		SpringApplication.run(ServerApplication.class, args);
 	}
 
 }

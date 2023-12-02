@@ -1,10 +1,10 @@
-package com.par20.cm_server;
+package com.epitech.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CmServerApplicationTests {
+class ServerApplicationTests {
 
 	@Test
 	void contextLoads() {
