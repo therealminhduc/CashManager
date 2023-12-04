@@ -1,9 +1,16 @@
 package com.epitech.bankserver.service.account;
 
+import com.epitech.bankserver.model.account.Admin;
 import com.epitech.bankserver.model.account.Account;
+import com.epitech.bankserver.repository.account.AdminRepository;
 import com.epitech.bankserver.repository.account.AccountRepository;
+import com.epitech.bankserver.role.AccountRole;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +18,13 @@ import java.util.Random;
 
 @AllArgsConstructor
 @Service
-public class AccountService {
+public abstract class AccountService implements UserDetailsService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private AdminRepository adminRepository;
 
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
@@ -32,6 +42,7 @@ public class AccountService {
         Account account = new Account();
         account.setAccountOwner(accountOwner);
         account.setBalance(balance);
+        account.setRole(AccountRole.CLIENT);
 
         String accountNumber = generateUniqueAccountNumber();
         account.setAccountNumber(accountNumber);
@@ -71,4 +82,19 @@ public class AccountService {
         }
         return accountNumberBuilder.toString();
     }
+
+    /********************************************************************************/
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Admin admin = adminRepository.findAdminByUsername(username);
+//
+//        if (admin == null) {
+//            throw new UsernameNotFoundException("Admin not found");
+//        }
+//
+//        return new User(
+//
+//        )
+//    }
 }

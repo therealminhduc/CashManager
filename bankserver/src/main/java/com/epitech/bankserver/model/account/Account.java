@@ -1,10 +1,12 @@
 package com.epitech.bankserver.model.account;
 
 import com.epitech.bankserver.model.creditcard.CreditCard;
+import com.epitech.bankserver.role.AccountRole;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 @Document("account")
@@ -24,6 +26,11 @@ public class Account {
 
     private int balance;
 
+    private AccountRole role;
+
     private CreditCard[] creditCard;
 
+    public Account(String accountOwner) {
+        this.accountOwner = accountOwner;
+    }
 }
