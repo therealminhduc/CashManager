@@ -52,4 +52,6 @@ public class User {
   public void setBasket(Basket basket) {
     this.basket = basket;
   }
+
+  public Basket getBasket() {return basket;}
 }
