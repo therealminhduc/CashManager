@@ -23,8 +23,8 @@ public class UserService {
 
   public User addUser(User user) {
     Basket basket = basketRepository.insert(new Basket());
-    User newUser = new User(user.getUsername(), user.getPassword(), basket);
-    return userRepository.insert(newUser);
+    user.setBasket(basket);
+    return userRepository.insert(user);
   }
 
   public List<User> getAllUsers() {

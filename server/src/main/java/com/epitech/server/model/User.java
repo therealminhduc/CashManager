@@ -19,6 +19,10 @@ public class User {
     this.basket = new Basket();
   }
 
+  public User() {
+
+  }
+
   public User(String username, String password, Basket basket) {
     this.username = username;
     this.password = password;
@@ -50,5 +54,9 @@ public class User {
 
   public String getId() {
     return id;
+  }
+
+  public void setBasket(Basket basket) {
+    this.basket = basket;
   }
 }
