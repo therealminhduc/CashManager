@@ -1,6 +1,7 @@
 package com.epitech.server.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("user")
@@ -9,6 +10,7 @@ public class User {
   private String id;
   private String username;
   private String password;
+  @DBRef
   private Basket basket;
 
   public User(String username, String password) {
@@ -17,11 +19,17 @@ public class User {
     this.basket = new Basket();
   }
 
-  public User(String id, String username, String password) {
+  public User(String username, String password, Basket basket) {
+    this.username = username;
+    this.password = password;
+    this.basket = basket;
+  }
+
+  public User(String id, String username, String password, Basket basket) {
     this.id = id;
     this.username = username;
     this.password = password;
-    this.basket = new Basket();
+    this.basket = basket;
   }
 
   public String getPassword() {
