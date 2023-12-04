@@ -1,11 +1,10 @@
 package com.epitech.bankserver.model.creditcard;
 
-    import lombok.*;
+import java.util.Date;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.Date;
 
 @Data
 @Document("credit_card")
@@ -15,16 +14,16 @@ import java.util.Date;
 @Setter
 public class CreditCard {
 
-    @Id
-    private int id;
+  @Id
+  private String id;
 
-    private String cardNumber;
+  @Indexed(unique = true)
+  private String cardNumber;
 
-    @Indexed(unique = true)
-    private String securityNumber;
+  @Indexed(unique = true)
+  private String securityNumber;
 
-    private Date expirationDate;
+  private Date expirationDate;
 
-    private String accountOwner;
-
+  private String accountOwner;
 }
