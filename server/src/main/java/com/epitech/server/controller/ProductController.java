@@ -42,20 +42,21 @@ public class ProductController  {
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
-        if (!id.equals(product.getId())) {
+        /*if (!id.equals(product.getId())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         Product updateProduct = productService.updateProductById(product);
-        return new ResponseEntity<>(updateProduct, HttpStatus.OK);
+        return new ResponseEntity<>(updateProduct, HttpStatus.OK);*/
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProductById(@PathVariable String id) {
-        if (!id.equals(product.getId())) {
+        /*if (!id.equals(product.getId())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        productService.deleteProductById(id);
+        productService.deleteProductById(id);*/
         return new ResponseEntity<>( HttpStatus.OK);
     }
 }
