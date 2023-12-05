@@ -10,8 +10,12 @@ public class User {
   private String id;
   private String username;
   private String password;
-  @DBRef
+  @DBRef(lazy = false)
   private Basket basket;
+
+  public User() {
+
+  }
 
   public User(String username, String password) {
     this.username = username;
@@ -19,18 +23,7 @@ public class User {
     this.basket = new Basket();
   }
 
-  public User() {
-
-  }
-
   public User(String username, String password, Basket basket) {
-    this.username = username;
-    this.password = password;
-    this.basket = basket;
-  }
-
-  public User(String id, String username, String password, Basket basket) {
-    this.id = id;
     this.username = username;
     this.password = password;
     this.basket = basket;
@@ -59,4 +52,6 @@ public class User {
   public void setBasket(Basket basket) {
     this.basket = basket;
   }
+
+  public Basket getBasket() {return basket;}
 }
