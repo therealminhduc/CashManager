@@ -15,11 +15,21 @@ public class BasketService {
 
   @Autowired
   UserRepository userRepository;
-  /*
   public Basket getBasketByUserId(String userId) {
     User user = userRepository.findById(userId).orElse(null);
     if (user == null) {
       return null;
     }
-  }*/
+    return user.getBasket();
+  }
+
+  public Basket saveBasket(String userId, Basket basket) {
+    User user = userRepository.findById(userId).orElse(null);
+    if (user == null) {
+      return null;
+    }
+    String basketId = user.getBasket().getId();
+    basket.setId(basketId);
+    return basketRepository.save(basket);
+  }
 }

@@ -1,6 +1,7 @@
 package com.epitech.server.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 public class Basket {
   @Id
   private String id;
+  @DBRef
   private ArrayList<Product> products;
 
   public Basket() {
@@ -35,4 +37,8 @@ public class Basket {
   public void removeProduct(Product product) {
     this.products.remove(product);
   }
+
+  public String getId() { return this.id; }
+
+  public void setId(String id) { this.id = id; }
 }

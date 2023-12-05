@@ -12,6 +12,10 @@ public class Product {
   private float price;
   private String code;
 
+  public Product() {
+
+  }
+
   public Product(String name, float price, String code) {
     this.name = name;
     this.price = price;
@@ -48,4 +52,8 @@ public class Product {
   public void setCode(String code) {
     this.code = code;
   }
+
+  public String getId() { return this.id; }
+
+  public void setId(String id) { this.id = id; }
 }

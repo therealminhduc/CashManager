@@ -10,7 +10,7 @@ public class User {
   private String id;
   private String username;
   private String password;
-  @DBRef(lazy = false)
+  @DBRef
   private Basket basket;
 
   public User() {
@@ -53,5 +53,5 @@ public class User {
     this.basket = basket;
   }
 
-  public Basket getBasket() {return basket;}
+  public Basket getBasket() {return this.basket;}
 }
