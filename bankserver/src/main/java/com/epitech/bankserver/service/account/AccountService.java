@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.Random;
 
 @AllArgsConstructor
 @Service
-public abstract class AccountService implements UserDetailsService {
+public class AccountService implements UserDetailsService {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -83,10 +84,12 @@ public abstract class AccountService implements UserDetailsService {
         return accountNumberBuilder.toString();
     }
 
+
     /********************************************************************************/
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
 //        Admin admin = adminRepository.findAdminByUsername(username);
 //
 //        if (admin == null) {
@@ -96,5 +99,5 @@ public abstract class AccountService implements UserDetailsService {
 //        return new User(
 //
 //        )
-//    }
+    }
 }

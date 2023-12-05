@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @GetMapping("/home")
-    public String showHomeForm() {
-        return "admin/home";
-    }
-
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "admin/login";
-    }
-
-    @GetMapping("/hello")
-    public String showHelloForm() {
-        return "admin/login";
-    }
+//    @GetMapping("/home")
+//    public String showHomeForm() {
+//        return "admin/home";
+//    }
+//
+//    @GetMapping("/login")
+//    public String showLoginForm() {
+//        return "admin/login";
+//    }
+//
+//    @GetMapping("/hello")
+//    public String showHelloForm() {
+//        return "admin/login";
+//    }
 
 }
