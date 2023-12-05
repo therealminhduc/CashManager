@@ -23,9 +23,9 @@ public class UserController  {
       return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{userID}")
-    public ResponseEntity<User> getUserById(@PathVariable String userID ) {
-        User user = userService.getUserById(userID);
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable String id ) {
+        User user = userService.getUserById(id);
 
         if (user != null) {
           return new ResponseEntity<>(user, HttpStatus.OK);
@@ -37,5 +37,22 @@ public class UserController  {
     @PostMapping
     public User createUser(@RequestBody User user) {
       return userService.addUser(user);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
+        //User updatedUser = userService.saveUser(user);
+        //return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable String id) {
+        /*if (!id.equals(User.getId())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userService.deleteUser(id);*/
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 }
