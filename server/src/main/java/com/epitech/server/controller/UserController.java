@@ -41,9 +41,8 @@ public class UserController  {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
-        //User updatedUser = userService.saveUser(user);
-        //return new ResponseEntity<>(updatedUser, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.OK);
+        User updatedUser = userService.saveUser(id, user);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
 
@@ -53,6 +52,7 @@ public class UserController  {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         userService.deleteUser(id);*/
+        userService.deleteUserById(id);
         return new ResponseEntity<>( HttpStatus.OK);
     }
 }

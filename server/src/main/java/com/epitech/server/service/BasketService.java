@@ -1,11 +1,14 @@
 package com.epitech.server.service;
 
 import com.epitech.server.model.Basket;
+import com.epitech.server.model.Product;
 import com.epitech.server.model.User;
 import com.epitech.server.repository.BasketRepository;
 import com.epitech.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class BasketService {
@@ -31,5 +34,15 @@ public class BasketService {
     String basketId = user.getBasket().getId();
     basket.setId(basketId);
     return basketRepository.save(basket);
+  }
+
+  public void emptyBasket(String userId) {
+    User user = userRepository.findById(userId).orElse(null);
+    if (user == null) {
+      return;
+    }
+    Basket userBasket = user.getBasket();
+    userBasket.setProducts(new ArrayList<>());
+    basketRepository.save(userBasket);
   }
 }

@@ -37,18 +37,13 @@ public class ProductController  {
 
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+        return productService.addProduct(product);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
-        /*if (!id.equals(product.getId())) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        Product updateProduct = productService.updateProductById(product);
-        return new ResponseEntity<>(updateProduct, HttpStatus.OK);*/
-        return new ResponseEntity<>(HttpStatus.OK);
+        Product updatedProduct = productService.updateProduct(id, product);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -57,6 +52,7 @@ public class ProductController  {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         productService.deleteProductById(id);*/
+        productService.deleteProductById(id);
         return new ResponseEntity<>( HttpStatus.OK);
     }
 }

@@ -17,7 +17,8 @@ public class UserService {
   BasketRepository basketRepository;
 
   // Use to insert or update a User in the db
-  public User saveUser(User user) {
+  public User saveUser(String id, User user) {
+    user.setId(id);
     return userRepository.save(user);
   }
 
@@ -33,10 +34,6 @@ public class UserService {
 
   public User getUserById(String id) {
     return userRepository.findById(id).orElse(null);
-  }
-
-  public void deleteUser(User user) {
-    userRepository.delete(user);
   }
 
   public void deleteUserById(String id) {

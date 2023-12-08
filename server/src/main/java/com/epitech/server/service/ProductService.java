@@ -12,8 +12,13 @@ public class ProductService {
   @Autowired
   ProductRepository productRepository;
 
-  public Product saveProduct(Product product) {
+  public Product updateProduct(String id, Product product) {
+    product.setId(id);
     return productRepository.save(product);
+  }
+
+  public Product addProduct(Product product) {
+    return productRepository.insert(product);
   }
 
   public Product getProductById(String id) {
@@ -26,9 +31,5 @@ public class ProductService {
 
   public void deleteProductById(String id) {
     productRepository.deleteById(id);
-  }
-
-  public void deleteProduct(Product product) {
-    productRepository.delete(product);
   }
 }

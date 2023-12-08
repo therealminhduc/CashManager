@@ -49,6 +49,8 @@ public class User {
     return id;
   }
 
+  public void setId(String id) { this.id = id; }
+
   public void setBasket(Basket basket) {
     this.basket = basket;
   }
