@@ -41,4 +41,13 @@ public class Basket {
   public String getId() { return this.id; }
 
   public void setId(String id) { this.id = id; }
+
+  public float getValue() {
+    float value = 0f;
+    for (Product product :
+         products) {
+      value += product.getPrice();
+    }
+    return value;
+  }
 }

@@ -18,6 +18,7 @@ public class BasketService {
 
   @Autowired
   UserRepository userRepository;
+
   public Basket getBasketByUserId(String userId) {
     User user = userRepository.findById(userId).orElse(null);
     if (user == null) {
@@ -44,5 +45,16 @@ public class BasketService {
     Basket userBasket = user.getBasket();
     userBasket.setProducts(new ArrayList<>());
     basketRepository.save(userBasket);
+  }
+
+  public boolean validateBasket(String userId, String name, long cardNumber) {
+    User user = userRepository.findById(userId).orElse(null);
+    if (user == null) {
+      return false;
+    }
+    Basket basket = user.getBasket();
+    float basketValue = basket.getValue();
+    // VALIDATION LOGIC
+    return true;
   }
 }
