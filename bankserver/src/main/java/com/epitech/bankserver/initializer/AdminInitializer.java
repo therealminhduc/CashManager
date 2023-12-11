@@ -6,31 +6,28 @@ import com.epitech.bankserver.repository.account.AccountRepository;
 import com.epitech.bankserver.role.AccountRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AdminInitializer implements CommandLineRunner {
 
-    @Autowired
-    private AccountRepository accountRepository;
+  @Autowired
+  private AccountRepository accountRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
-    @Override
-    public void run(String... args) throws Exception {
-        if(!accountRepository.existsAccountByRole(AccountRole.ADMIN)) {
-            Admin admin = new Admin();
-            admin.setUsername("admin");
-            admin.setAccountOwner("admin");
-            admin.setRole(AccountRole.ADMIN);
-            admin.setAccountNumber("000000");
-            admin.setPassword(passwordEncoder.encode("admin"));
+  @Override
+  public void run(String... args) throws Exception {
+    if (!accountRepository.existsAccountByRole(AccountRole.ADMIN)) {
+      Admin admin = new Admin();
+      admin.setUsername("admin");
+      admin.setAccountOwner("admin");
+      admin.setRole(AccountRole.ADMIN);
+      admin.setAccountNumber("000000");
+      admin.setPassword(passwordEncoder.encode("admin"));
 
-            accountRepository.save(admin);
-        }
+      accountRepository.save(admin);
     }
-
-
+  }
 }
