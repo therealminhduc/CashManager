@@ -14,9 +14,6 @@ public class AdminInitializer implements CommandLineRunner {
   @Autowired
   private AccountRepository accountRepository;
 
-  @Autowired
-  private PasswordEncoder passwordEncoder;
-
   @Override
   public void run(String... args) throws Exception {
     if (!accountRepository.existsAccountByRole(AccountRole.ADMIN)) {
@@ -25,7 +22,6 @@ public class AdminInitializer implements CommandLineRunner {
       admin.setAccountOwner("admin");
       admin.setRole(AccountRole.ADMIN);
       admin.setAccountNumber("000000");
-      admin.setPassword(passwordEncoder.encode("admin"));
 
       accountRepository.save(admin);
     }

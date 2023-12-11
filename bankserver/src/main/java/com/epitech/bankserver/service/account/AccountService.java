@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class AccountService implements UserDetailsService {
+public class AccountService {
 
   @Autowired
   private AccountRepository accountRepository;
@@ -81,21 +81,5 @@ public class AccountService implements UserDetailsService {
     }
     return accountNumberBuilder.toString();
   }
-
   /********************************************************************************/
-
-  @Override
-  public UserDetails loadUserByUsername(String username)
-    throws UsernameNotFoundException {
-    return null;
-    //        Admin admin = adminRepository.findAdminByUsername(username);
-    //
-    //        if (admin == null) {
-    //            throw new UsernameNotFoundException("Admin not found");
-    //        }
-    //
-    //        return new User(
-    //
-    //        )
-  }
 }
