@@ -51,6 +51,7 @@ public class CreditCardController {
     CreditCard createdCreditCard = creditCardService.createCreditCardWithAccountNumber(
       accountOwner
     );
+
     return new ResponseEntity<>(createdCreditCard, HttpStatus.CREATED);
   }
 

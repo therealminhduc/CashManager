@@ -1,15 +1,18 @@
 package com.epitech.bankserver.service.account;
 
 import com.epitech.bankserver.model.account.Account;
-import com.epitech.bankserver.model.account.Admin;
+import com.epitech.bankserver.model.creditcard.CreditCard;
+// import com.epitech.bankserver.model.account.Admin;
 import com.epitech.bankserver.repository.account.AccountRepository;
-import com.epitech.bankserver.repository.account.AdminRepository;
+import com.epitech.bankserver.repository.creditcard.CreditCardRepository;
+// import com.epitech.bankserver.repository.account.AdminRepository;
 import com.epitech.bankserver.role.AccountRole;
+import com.epitech.bankserver.service.creditcard.CreditCardService;
 import java.util.List;
 import java.util.Random;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+// import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -20,7 +23,12 @@ public class AccountService {
   private AccountRepository accountRepository;
 
   @Autowired
-  private AdminRepository adminRepository;
+  private CreditCardRepository creditCardRepository;
+
+  private CreditCardService creditCardService;
+
+  //   @Autowired
+  //   private AdminRepository adminRepository;
 
   public List<Account> getAllAccounts() {
     return accountRepository.findAll();
@@ -45,6 +53,11 @@ public class AccountService {
 
     String accountNumber = generateUniqueAccountNumber();
     account.setAccountNumber(accountNumber);
+
+    // set the credit card
+    CreditCard creditCard = new CreditCard();
+    creditCardService.createCreditCardWithAccountNumber(accountNumber);
+    account.setCreditCard(creditCard);
 
     return accountRepository.save(account);
   }

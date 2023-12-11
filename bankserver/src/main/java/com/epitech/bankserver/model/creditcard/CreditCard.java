@@ -1,5 +1,7 @@
 package com.epitech.bankserver.model.creditcard;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -8,10 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document("credit_card")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 public class CreditCard {
 
   @Id
@@ -26,4 +24,8 @@ public class CreditCard {
   private Date expirationDate;
 
   private String accountOwner;
+
+  // public ArrayList<String> getCardNumber() {
+  //   return cardNumber;
+  // }
 }

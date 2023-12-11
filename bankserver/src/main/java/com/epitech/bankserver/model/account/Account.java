@@ -5,32 +5,27 @@ import com.epitech.bankserver.role.AccountRole;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 @Document("account")
+// @AllArgsConstructor
 @NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 public class Account {
 
-    @Id
-    private String id;
+  @Id
+  private String id;
 
-    private String accountOwner;
+  private String accountOwner;
 
-    @Indexed(unique = true)
-    private String accountNumber;
+  @Indexed(unique = true)
+  private String accountNumber;
 
-    private int balance;
+  private int balance;
 
-    private AccountRole role;
+  private AccountRole role;
 
-    private CreditCard[] creditCard;
-
-    public Account(String accountOwner) {
-        this.accountOwner = accountOwner;
-    }
+  @DBRef
+  private CreditCard creditCard;
 }
