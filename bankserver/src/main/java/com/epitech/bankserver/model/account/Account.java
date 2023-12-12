@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document("account")
-// @AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 public class Account {
 
@@ -28,4 +28,8 @@ public class Account {
 
   @DBRef
   private CreditCard creditCard;
+
+  public Account(String accountOwner) {
+    this.accountOwner = accountOwner;
+  }
 }

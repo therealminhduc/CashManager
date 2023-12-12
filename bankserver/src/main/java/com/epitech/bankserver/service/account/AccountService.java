@@ -55,8 +55,8 @@ public class AccountService {
     account.setAccountNumber(accountNumber);
 
     // set the credit card
-    CreditCard creditCard = new CreditCard();
-    creditCardService.createCreditCardWithAccountNumber(accountNumber);
+    CreditCard creditCard = creditCardService.createCreditCardWithAccountNumber(accountNumber);
+
     account.setCreditCard(creditCard);
 
     return accountRepository.save(account);
