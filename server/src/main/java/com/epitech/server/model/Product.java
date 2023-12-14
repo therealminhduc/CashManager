@@ -46,7 +46,7 @@ public class Product {
   }
 
   public String getCode() {
-    return code;
+    return this.code;
   }
 
   public void setCode(String code) {

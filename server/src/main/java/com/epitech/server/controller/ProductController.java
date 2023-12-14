@@ -24,14 +24,14 @@ public class ProductController  {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable String id ) {
-        Product product = productService.getProductById(id);
+    @GetMapping("/{code}")
+    public ResponseEntity<Product> getProductByCode(@PathVariable String code) {
+        Product product = productService.getProductByCode(code);
 
         if (product != null) {
             return new ResponseEntity<>(product, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(product, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

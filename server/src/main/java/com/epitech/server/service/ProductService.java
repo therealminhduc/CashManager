@@ -21,8 +21,8 @@ public class ProductService {
     return productRepository.insert(product);
   }
 
-  public Product getProductById(String id) {
-    return productRepository.findById(id).orElse(null);
+  public Product getProductByCode(String code) {
+    return productRepository.findProductByCode(code).orElse(null);
   }
 
   public List<Product> getAllProducts() {
