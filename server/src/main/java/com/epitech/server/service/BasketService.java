@@ -65,6 +65,17 @@ public class BasketService {
     return userBasket;
   }
 
+  public Basket removeProduct(String userId, String productId) {
+    User user = userRepository.findById(userId).orElse(null);
+    if (user == null) {
+      return null;
+    }
+    Basket userBasket = user.getBasket();
+    userBasket.removeProductWithId(productId);
+    basketRepository.save(userBasket);
+    return userBasket;
+  }
+
   public boolean validateBasket(String userId, String name, long cardNumber) {
     User user = userRepository.findById(userId).orElse(null);
     if (user == null) {

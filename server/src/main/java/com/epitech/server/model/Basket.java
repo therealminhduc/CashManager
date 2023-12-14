@@ -38,6 +38,15 @@ public class Basket {
     this.products.remove(product);
   }
 
+  public void removeProductWithId(String productId) {
+    for (Product product : products) {
+      if (product.getId().equals(productId)) {
+        products.remove(product);
+        return;
+      }
+    }
+  }
+
   public String getId() { return this.id; }
 
   public void setId(String id) { this.id = id; }
