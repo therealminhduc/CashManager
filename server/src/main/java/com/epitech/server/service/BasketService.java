@@ -4,6 +4,7 @@ import com.epitech.server.model.Basket;
 import com.epitech.server.model.Product;
 import com.epitech.server.model.User;
 import com.epitech.server.repository.BasketRepository;
+import com.epitech.server.repository.ProductRepository;
 import com.epitech.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class BasketService {
 
   @Autowired
   UserRepository userRepository;
+
+  @Autowired
+  ProductRepository productRepository;
 
   public Basket getBasketByUserId(String userId) {
     User user = userRepository.findById(userId).orElse(null);
@@ -45,6 +49,20 @@ public class BasketService {
     Basket userBasket = user.getBasket();
     userBasket.setProducts(new ArrayList<>());
     basketRepository.save(userBasket);
+  }
+
+  public Basket addProduct(String userId, String productId, int quantity) {
+    User user = userRepository.findById(userId).orElse(null);
+    Product product = productRepository.findById(productId).orElse(null);
+    if (user == null || product == null) {
+      return null;
+    }
+    Basket userBasket = user.getBasket();
+    for (int i = 0; i < quantity; i++) {
+      userBasket.addProduct(product);
+    }
+    basketRepository.save(userBasket);
+    return userBasket;
   }
 
   public boolean validateBasket(String userId, String name, long cardNumber) {
