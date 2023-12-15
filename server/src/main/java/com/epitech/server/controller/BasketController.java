@@ -27,10 +27,10 @@ public class BasketController  {
     }
 
     public static class RemoveProductRequest {
-        private String productId;
+        private String productCode;
 
-        public String getProductId() { return this.productId; }
-        public void setProductId(String productId) { this.productId = productId; }
+        public String getProductCode() { return this.productCode; }
+        public void setProductCode(String productCode) { this.productCode = productCode; }
     }
 
     @GetMapping("/{userId}/basket")
@@ -63,7 +63,6 @@ public class BasketController  {
     public ResponseEntity<Basket> addProductToBasket(
         @PathVariable String userId,
         @RequestBody AddProductRequest request) {
-        System.out.println("adding a product");
         String productCode = request.getProductCode();
         int quantity = request.getQuantity();
         Basket basket = basketService.addProduct(userId, productCode, quantity);
@@ -78,8 +77,8 @@ public class BasketController  {
     public ResponseEntity<Basket> deleteProductFromBasket(
         @PathVariable String userId,
         @RequestBody RemoveProductRequest request) {
-        String productId = request.getProductId();
-        Basket basket = basketService.removeProduct(userId, productId);
+        String productCode = request.getProductCode();
+        Basket basket = basketService.removeProduct(userId, productCode);
         if (basket != null) {
             return new ResponseEntity<>(basket, HttpStatus.OK);
         } else {

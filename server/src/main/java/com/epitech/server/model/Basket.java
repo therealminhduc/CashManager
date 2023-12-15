@@ -38,9 +38,9 @@ public class Basket {
     this.products.remove(product);
   }
 
-  public void removeProductWithId(String productId) {
+  public void removeProductWithCode(String productCode) {
     for (Product product : products) {
-      if (product.getId().equals(productId)) {
+      if (product.getCode().equals(productCode)) {
         products.remove(product);
         return;
       }

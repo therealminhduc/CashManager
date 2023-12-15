@@ -68,13 +68,13 @@ public class BasketService {
     return userBasket;
   }
 
-  public Basket removeProduct(String userId, String productId) {
+  public Basket removeProduct(String userId, String productCode) {
     User user = userRepository.findById(userId).orElse(null);
     if (user == null) {
       return null;
     }
     Basket userBasket = user.getBasket();
-    userBasket.removeProductWithId(productId);
+    userBasket.removeProductWithCode(productCode);
     basketRepository.save(userBasket);
     return userBasket;
   }
