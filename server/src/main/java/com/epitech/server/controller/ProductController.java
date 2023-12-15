@@ -20,14 +20,13 @@ public class ProductController  {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> users = productService.getAllProducts();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        List<Product> products = productService.getAllProducts();
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping("/{code}")
     public ResponseEntity<Product> getProductByCode(@PathVariable String code) {
         Product product = productService.getProductByCode(code);
-
         if (product != null) {
             return new ResponseEntity<>(product, HttpStatus.OK);
         } else {
@@ -48,10 +47,6 @@ public class ProductController  {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProductById(@PathVariable String id) {
-        /*if (!id.equals(product.getId())) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        productService.deleteProductById(id);*/
         productService.deleteProductById(id);
         return new ResponseEntity<>( HttpStatus.OK);
     }

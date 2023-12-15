@@ -24,13 +24,12 @@ public class UserController  {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable String id ) {
+    public ResponseEntity<User> getUserById(@PathVariable String id) {
         User user = userService.getUserById(id);
-
         if (user != null) {
           return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
-          return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
