@@ -19,8 +19,9 @@ public class UserController  {
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
-      List<User> users = userService.getAllUsers();
-      return new ResponseEntity<>(users, HttpStatus.OK);
+        System.out.println("getting all users");
+        List<User> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -35,7 +36,7 @@ public class UserController  {
 
     @PostMapping
     public User createUser(@RequestBody User user) {
-      return userService.addUser(user);
+        return userService.addUser(user);
     }
 
     @PutMapping("/{id}")

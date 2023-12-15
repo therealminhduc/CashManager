@@ -1,8 +1,6 @@
 package com.epitech.server.controller;
 import com.epitech.server.model.Product;
-import com.epitech.server.model.User;
 import com.epitech.server.service.ProductService;
-import com.epitech.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
