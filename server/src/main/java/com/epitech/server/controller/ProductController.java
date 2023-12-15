@@ -40,9 +40,9 @@ public class ProductController  {
         return productService.addProduct(product);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
-        Product updatedProduct = productService.updateProduct(id, product);
+    @PutMapping("/{code}")
+    public ResponseEntity<Product> updateProduct(@PathVariable String code, @RequestBody Product product) {
+        Product updatedProduct = productService.updateProduct(code, product);
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 

@@ -1,5 +1,6 @@
 package com.epitech.server.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Product {
 
   @Id
-  private String id;
+  private ObjectId id;
   private String name;
   private float price;
   private String code;
@@ -22,7 +23,7 @@ public class Product {
     this.code = code;
   }
 
-  public Product(String id, String name, float price, String code) {
+  public Product(ObjectId id, String name, float price, String code) {
     this.id = id;
     this.name = name;
     this.price = price;
@@ -53,7 +54,7 @@ public class Product {
     this.code = code;
   }
 
-  public String getId() { return this.id; }
+  public String getId() { return this.id.toString(); }
 
-  public void setId(String id) { this.id = id; }
+  public void setId(String id) { this.id = new ObjectId(id); }
 }

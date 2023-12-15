@@ -12,9 +12,14 @@ public class ProductService {
   @Autowired
   ProductRepository productRepository;
 
-  public Product updateProduct(String id, Product product) {
-    product.setId(id);
-    return productRepository.save(product);
+  public Product updateProduct(String code, Product product) {
+    Product dbProduct = productRepository.findProductByCode(code).orElse(null);
+    if (dbProduct != null) {
+      product.setId(dbProduct.getId());
+      product.setCode(code);
+      return productRepository.save(product);
+    }
+    return null;
   }
 
   public Product addProduct(Product product) {
