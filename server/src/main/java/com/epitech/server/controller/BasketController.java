@@ -15,13 +15,13 @@ public class BasketController  {
     private BasketService basketService;
 
     public static class AddProductRequest {
-        private String productId;
+        private String productCode;
         private int quantity;
 
         public AddProductRequest() {}
 
-        public String getProductId() { return this.productId; }
-        public void setProductId(String productId) { this.productId = productId; }
+        public String getProductCode() { return this.productCode; }
+        public void setProductCode(String productCode) { this.productCode = productCode; }
         public int getQuantity() { return this.quantity; }
         public void setQuantity(int quantity) { this.quantity = quantity; }
     }
@@ -63,9 +63,10 @@ public class BasketController  {
     public ResponseEntity<Basket> addProductToBasket(
         @PathVariable String userId,
         @RequestBody AddProductRequest request) {
-        String productId = request.getProductId();
+        System.out.println("adding a product");
+        String productCode = request.getProductCode();
         int quantity = request.getQuantity();
-        Basket basket = basketService.addProduct(userId, productId, quantity);
+        Basket basket = basketService.addProduct(userId, productCode, quantity);
         if (basket != null) {
             return new ResponseEntity<>(basket, HttpStatus.OK);
         } else {

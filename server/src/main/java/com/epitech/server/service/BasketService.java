@@ -6,6 +6,7 @@ import com.epitech.server.model.User;
 import com.epitech.server.repository.BasketRepository;
 import com.epitech.server.repository.ProductRepository;
 import com.epitech.server.repository.UserRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,10 +52,12 @@ public class BasketService {
     basketRepository.save(userBasket);
   }
 
-  public Basket addProduct(String userId, String productId, int quantity) {
+  public Basket addProduct(String userId, String productCode, int quantity) {
     User user = userRepository.findById(userId).orElse(null);
-    Product product = productRepository.findById(productId).orElse(null);
+    Product product = productRepository.findProductByCode(productCode).orElse(null);
     if (user == null || product == null) {
+      if (user == null) System.out.println("user is null");
+      if (product == null) System.out.println("product is null");
       return null;
     }
     Basket userBasket = user.getBasket();
