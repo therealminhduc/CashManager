@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface ProductRepository extends MongoRepository<Product, String> {
   @Query("{code:'?0'}")
   Optional<Product> findProductByCode(String code);
+
 }

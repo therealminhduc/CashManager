@@ -34,7 +34,7 @@ public class ProductService {
     return productRepository.findAll();
   }
 
-  public void deleteProductById(String id) {
-    productRepository.deleteById(id);
+  public void deleteProductByCode(String code) {
+    productRepository.findProductByCode(code).ifPresent(productToDelete -> productRepository.delete(productToDelete));
   }
 }
