@@ -38,6 +38,10 @@ public class AccountService {
     return accountRepository.findAccountByAccountNumber(accountNumber);
   }
 
+  public Account findAccountByCardNumber(String cardNumber) {
+    return accountRepository.findAccountByCreditCard_CardNumber(cardNumber);
+  }
+
   public Account createAccount(Account account) {
     return accountRepository.save(account);
   }

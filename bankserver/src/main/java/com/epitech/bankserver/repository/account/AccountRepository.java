@@ -11,6 +11,8 @@ public interface AccountRepository extends MongoRepository<Account, String> {
 
     Account findAccountByAccountOwner(String accountOwner);
 
+    Account findAccountByCreditCard_CardNumber(String cardNumber);
+
     boolean existsAccountByAccountNumber(String accountNumber);
 
     Account deleteAccountByAccountNumber(String accountNumber);
