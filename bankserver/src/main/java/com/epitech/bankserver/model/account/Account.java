@@ -22,7 +22,7 @@ public class Account {
   @Indexed(unique = true)
   private String accountNumber;
 
-  private int balance;
+  private float balance;
 
   private AccountRole role;
 

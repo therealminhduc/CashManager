@@ -39,7 +39,11 @@ public class AccountService {
   }
 
   public Account findAccountByCardNumber(String cardNumber) {
-    return accountRepository.findAccountByCreditCard_CardNumber(cardNumber);
+    CreditCard creditCard = creditCardRepository.findCreditCardByCardNumber(cardNumber);
+    if (creditCard != null) {
+      return accountRepository.findAccountByCreditCard(creditCard);
+    }
+    return null;
   }
 
   public Account createAccount(Account account) {
