@@ -1,10 +1,8 @@
 package com.epitech.server.controller;
 
 import com.epitech.server.model.Basket;
-import com.epitech.server.payment.CardInfos;
+import com.epitech.server.payment.CreditCard;
 import com.epitech.server.service.BasketService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.http.HttpResponse;
 
 @RestController
 @RequestMapping("/api/users")
@@ -92,14 +91,14 @@ public class BasketController  {
     }
 
     @PostMapping("/{userId}/basket/validate")
-    public ResponseEntity<Boolean> validateBasket(
+    public ResponseEntity<String> validateBasket(
         @PathVariable String userId,
-        @RequestBody CardInfos cardInfos) throws URISyntaxException, IOException, InterruptedException {
-        boolean valid = basketService.validateBasket(userId, cardInfos);
-        if (valid) {
-            return new ResponseEntity<>(true, HttpStatus.OK);
+        @RequestBody CreditCard creditCard) throws URISyntaxException, IOException, InterruptedException {
+        HttpResponse<String> response = basketService.validateBasket(userId, creditCard);
+        if (response.statusCode() == 200) {
+            return new ResponseEntity<>("ok", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(response.body(), HttpStatus.BAD_REQUEST);
         }
     }
 }

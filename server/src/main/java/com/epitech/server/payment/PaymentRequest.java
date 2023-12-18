@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class PaymentRequest {
-  private CardInfos cardInfos;
+  private CreditCard creditCard;
   private float amount;
 
-  public PaymentRequest(CardInfos cardInfos, float amount) {
-    this.cardInfos = cardInfos;
+  public PaymentRequest(CreditCard creditCard, float amount) {
+    this.creditCard = creditCard;
     this.amount = amount;
   }
 
@@ -17,12 +17,12 @@ public class PaymentRequest {
     return objectMapper.writeValueAsString(this);
   }
 
-  public CardInfos getCardInfos() {
-    return cardInfos;
+  public CreditCard getCreditCard() {
+    return creditCard;
   }
 
-  public void setCardInfos(CardInfos cardInfos) {
-    this.cardInfos = cardInfos;
+  public void setCreditCard(CreditCard creditCard) {
+    this.creditCard = creditCard;
   }
 
   public float getAmount() {
