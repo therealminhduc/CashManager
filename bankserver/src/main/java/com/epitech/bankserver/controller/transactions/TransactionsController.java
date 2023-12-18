@@ -1,7 +1,11 @@
 package com.epitech.bankserver.controller.transactions;
 
+import com.epitech.bankserver.model.account.Account;
 import com.epitech.bankserver.model.creditcard.CreditCard;
 import com.epitech.bankserver.model.transactions.Transactions;
+import com.epitech.bankserver.repository.creditcard.CreditCardRepository;
+import com.epitech.bankserver.service.account.AccountService;
+import com.epitech.bankserver.service.creditcard.CreditCardService;
 import com.epitech.bankserver.service.transactions.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +24,15 @@ public class TransactionsController {
 
     @Autowired
     private TransactionsService transactionsService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private CreditCardService creditCardService;
+
+    @Autowired
+    private CreditCardRepository creditCardRepository;
 
     public static class transactionRequest {
         private CreditCard creditCard;
@@ -47,19 +60,27 @@ public class TransactionsController {
 
     @PostMapping
     public ResponseEntity<?> performTransaction(@RequestBody transactionRequest requestBody) {
-        CreditCard creditCard = requestBody.getCreditCard();
-        String cardNumber = creditCard.getCardNumber();
+        CreditCard creditCardOnRequest = requestBody.getCreditCard();
+        String cardNumberOnRequest = creditCardOnRequest.getCardNumber();
+        String securityNumberOnRequest = creditCardOnRequest.getSecurityNumber();
         float amount = requestBody.getAmount();
 
-        if (cardNumber == null) {
+        CreditCard creditCard = creditCardService.findByCardNumber(cardNumberOnRequest);
+        Account account = accountService.findAccountByCardNumber(cardNumberOnRequest);
+
+        if (!creditCardRepository.existsCreditCardByCardNumber(cardNumberOnRequest) || !creditCardRepository.existsCreditCardBySecurityNumber(securityNumberOnRequest)) {
             return new ResponseEntity<>(
-                    "'cardNumber' does not existed",
+                    "Something wrong with your information",
                     HttpStatus.BAD_REQUEST
             );
+        } else if (account.getBalance() - amount < 0 ) {
+            return new ResponseEntity<>(
+                    "Insufficient funds",
+                    HttpStatus.PAYMENT_REQUIRED
+            );
+        } else {
+            Transactions transactions = transactionsService.performTransaction(cardNumberOnRequest, amount);
+            return new ResponseEntity<>("Transaction done successfully", HttpStatus.OK);
         }
-
-        Transactions transactions = transactionsService.performTransaction(cardNumber, amount);
-
-        return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 }
