@@ -23,7 +23,7 @@ public class CreditCard {
 
   private Date expirationDate;
 
-  private String accountOwner;
+  private String accountNumber;
 
   // public ArrayList<String> getCardNumber() {
   //   return cardNumber;

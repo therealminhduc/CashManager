@@ -36,7 +36,7 @@ public class CreditCardService {
     String securityNumber = generateUniqueSecurityNumber();
     creditCard.setSecurityNumber(securityNumber);
 
-    creditCard.setAccountOwner(accountNumber);
+    creditCard.setAccountNumber(accountNumber);
 
     // Credit card expiration date is set to 3 years from now
     creditCard.setExpirationDate(

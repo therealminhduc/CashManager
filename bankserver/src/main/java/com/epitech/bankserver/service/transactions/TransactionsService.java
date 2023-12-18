@@ -17,27 +17,30 @@ public class TransactionsService {
     @Autowired
     private TransactionsRepository transactionsRepository;
 
+    @Autowired
     private AccountService accountService;
 
+    @Autowired
     private CreditCardService creditCardService;
 
-    public Transactions performTransaction(String cardNumber, int amount) {
+    public Transactions performTransaction(String cardNumber, float amount) {
         CreditCard creditCard = creditCardService.findByCardNumber(cardNumber);
         Account sourceAccount = accountService.findAccountByCardNumber(cardNumber);
         String sourceAccountNumber = sourceAccount.getAccountNumber();
-        int sourceAccountBalance = sourceAccount.getBalance();
+        float sourceAccountBalance = sourceAccount.getBalance();
 
         deduct(sourceAccount, amount, sourceAccountBalance);
 
         Transactions transactions = new Transactions();
         transactions.setSourceAccountNumber(sourceAccountNumber);
+        transactions.setCreditCard(creditCard);
         transactions.setAmount(amount);
         transactions.setTimestamp(LocalDateTime.now());
 
         return transactionsRepository.save(transactions);
     }
 
-    public void deduct(Account account, int amount, int balance) {
+    public void deduct(Account account, float amount, float balance) {
         if (balance < 0) {
             throw new RuntimeException("Insufficient funds");
         }
