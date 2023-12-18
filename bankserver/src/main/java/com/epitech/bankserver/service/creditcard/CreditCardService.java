@@ -2,12 +2,18 @@ package com.epitech.bankserver.service.creditcard;
 
 import com.epitech.bankserver.model.creditcard.CreditCard;
 import com.epitech.bankserver.repository.creditcard.CreditCardRepository;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class CreditCardService {
@@ -39,11 +45,18 @@ public class CreditCardService {
     creditCard.setAccountNumber(accountNumber);
 
     // Credit card expiration date is set to 3 years from now
-    creditCard.setExpirationDate(
-      new java.sql.Date(
-        System.currentTimeMillis() + (3L * 365L * 24L * 60L * 60L * 1000L)
-      )
-    );
+    Date expirationDate = new Date(System.currentTimeMillis() + (3L * 365L * 24L * 60L * 60L * 1000L));
+    SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
+    String formattedExpirationDate = formatter.format(expirationDate);
+
+    System.out.println(formattedExpirationDate);
+
+    try {
+      Date parsedExpirationDate = formatter.parse(formattedExpirationDate);
+      creditCard.setExpirationDate(parsedExpirationDate);
+    } catch (ParseException e) {
+      log.error("Parse error", e);
+    }
 
     return creditCardRepository.save(creditCard);
   }
