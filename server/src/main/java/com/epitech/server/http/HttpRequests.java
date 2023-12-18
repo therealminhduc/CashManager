@@ -1,25 +1,33 @@
 package com.epitech.server.http;
 
-import lombok.Data;
+import com.epitech.server.payment.PaymentRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
-@Data
 public class HttpRequests {
-    URL url = new URL("http://localhost:8081");
-    HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-    public HttpRequests() throws IOException {
+    URI uri = new URI("http://localhost:8081");
+    public HttpRequests() throws URISyntaxException {
 
     }
 
-    public void setRequestMethodPost() throws ProtocolException {
-        con.setRequestMethod("POST");
+    public String postTransaction(PaymentRequest paymentRequest) throws IOException, InterruptedException {
+        String requestJson = paymentRequest.toJson();
+        HttpRequest httpRequest = HttpRequest.newBuilder(this.uri)
+            .POST(HttpRequest.BodyPublishers.ofString(requestJson))
+            .build();
+
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        String result = response.body();
+        // Besoin de connaitre le format de la réponse
+        // Pour déserialiser le json en objet java
+        return "ok";
     }
-
-
 }

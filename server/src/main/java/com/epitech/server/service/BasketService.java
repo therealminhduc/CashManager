@@ -1,15 +1,22 @@
 package com.epitech.server.service;
 
+import com.epitech.server.http.HttpRequests;
+
 import com.epitech.server.model.Basket;
 import com.epitech.server.model.Product;
 import com.epitech.server.model.User;
+import com.epitech.server.payment.CardInfos;
+import com.epitech.server.payment.PaymentRequest;
 import com.epitech.server.repository.BasketRepository;
 import com.epitech.server.repository.ProductRepository;
 import com.epitech.server.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 @Service
@@ -79,14 +86,17 @@ public class BasketService {
     return userBasket;
   }
 
-  public boolean validateBasket(String userId, String name, long cardNumber) {
+  public boolean validateBasket(String userId, CardInfos cardInfos) throws URISyntaxException, IOException, InterruptedException {
     User user = userRepository.findById(userId).orElse(null);
     if (user == null) {
       return false;
     }
     Basket basket = user.getBasket();
     float basketValue = basket.getValue();
-    // VALIDATION LOGIC
+    PaymentRequest paymentRequest = new PaymentRequest(cardInfos, basketValue);
+    HttpRequests httpRequests = new HttpRequests();
+    String response = httpRequests.postTransaction(paymentRequest);
+    // En fonction de la réponse, renvoyer ce qu'il faut
     return true;
   }
 }

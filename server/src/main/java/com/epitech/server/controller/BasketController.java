@@ -1,12 +1,17 @@
 package com.epitech.server.controller;
 
 import com.epitech.server.model.Basket;
+import com.epitech.server.payment.CardInfos;
 import com.epitech.server.service.BasketService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api/users")
@@ -83,6 +88,18 @@ public class BasketController  {
             return new ResponseEntity<>(basket, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/{userId}/basket/validate")
+    public ResponseEntity<Boolean> validateBasket(
+        @PathVariable String userId,
+        @RequestBody CardInfos cardInfos) throws URISyntaxException, IOException, InterruptedException {
+        boolean valid = basketService.validateBasket(userId, cardInfos);
+        if (valid) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
 }
