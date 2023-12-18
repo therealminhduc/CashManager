@@ -17,7 +17,7 @@ public class HttpRequests {
 
     }
 
-    public String postTransaction(PaymentRequest paymentRequest) throws IOException, InterruptedException {
+    public boolean postTransaction(PaymentRequest paymentRequest) throws IOException, InterruptedException {
         String requestJson = paymentRequest.toJson();
         HttpRequest httpRequest = HttpRequest.newBuilder(this.uri)
             .POST(HttpRequest.BodyPublishers.ofString(requestJson))
@@ -25,9 +25,6 @@ public class HttpRequests {
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-        String result = response.body();
-        // Besoin de connaitre le format de la réponse
-        // Pour déserialiser le json en objet java
-        return "ok";
+        return response.statusCode() == 200;
     }
 }

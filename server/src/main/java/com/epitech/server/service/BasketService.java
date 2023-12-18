@@ -95,8 +95,6 @@ public class BasketService {
     float basketValue = basket.getValue();
     PaymentRequest paymentRequest = new PaymentRequest(cardInfos, basketValue);
     HttpRequests httpRequests = new HttpRequests();
-    String response = httpRequests.postTransaction(paymentRequest);
-    // En fonction de la réponse, renvoyer ce qu'il faut
-    return true;
+    return httpRequests.postTransaction(paymentRequest);
   }
 }
