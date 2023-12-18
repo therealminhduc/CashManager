@@ -41,10 +41,7 @@ public class TransactionsService {
     }
 
     public void deduct(Account account, float amount, float balance) {
-        if (balance < 0) {
-            throw new RuntimeException("Insufficient funds");
-        }
-
+        float deduct = balance - amount;
         account.setBalance(balance - amount);
         accountService.updateAccount(account);
     }

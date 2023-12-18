@@ -2,6 +2,8 @@ package com.epitech.bankserver.controller.account;
 
 import com.epitech.bankserver.model.account.Account;
 import com.epitech.bankserver.service.account.AccountService;
+
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +47,7 @@ public class AccountController {
   @PostMapping
   public ResponseEntity<?> createAccountWithAccountOwnerAndBalance(
     @RequestBody Map<String, Object> requestBody
-  ) {
+  ) throws ParseException {
     String accountOwner = (String) requestBody.get("accountOwner");
     Integer balance = (Integer) requestBody.get("balance");
 
