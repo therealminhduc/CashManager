@@ -29,9 +29,6 @@ public class AccountService {
 
   private CreditCardService creditCardService;
 
-  //   @Autowired
-  //   private AdminRepository adminRepository;
-
   public List<Account> getAllAccounts() {
     return accountRepository.findAll();
   }
@@ -65,7 +62,7 @@ public class AccountService {
     account.setAccountNumber(accountNumber);
 
     // set the credit card
-    CreditCard creditCard = creditCardService.createCreditCardWithAccountNumber(accountNumber);
+    CreditCard creditCard = creditCardService.createCreditCardWithAccountNumber(accountNumber, accountOwner);
 
     account.setCreditCard(creditCard);
 

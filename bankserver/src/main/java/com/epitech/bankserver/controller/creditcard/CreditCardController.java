@@ -39,18 +39,17 @@ public class CreditCardController {
   public ResponseEntity<?> createCreditCardWithAccountNumber(
     @RequestBody Map<String, Object> requestBody
   ) {
-    String accountOwner = (String) requestBody.get("accountNumber");
+    String accountNumber = (String) requestBody.get("accountNumber");
+    String cardOwner = (String) requestBody.get("cardOwner");
 
-    if (accountOwner == null) {
+    if (accountNumber == null) {
       return new ResponseEntity<>(
         "'accountNumber' must be provided",
         HttpStatus.BAD_REQUEST
       );
     }
 
-    CreditCard createdCreditCard = creditCardService.createCreditCardWithAccountNumber(
-      accountOwner
-    );
+    CreditCard createdCreditCard = creditCardService.createCreditCardWithAccountNumber(accountNumber, cardOwner);
 
     return new ResponseEntity<>(createdCreditCard, HttpStatus.CREATED);
   }

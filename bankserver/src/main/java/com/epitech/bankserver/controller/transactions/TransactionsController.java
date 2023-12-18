@@ -63,12 +63,15 @@ public class TransactionsController {
         CreditCard creditCardOnRequest = requestBody.getCreditCard();
         String cardNumberOnRequest = creditCardOnRequest.getCardNumber();
         String securityNumberOnRequest = creditCardOnRequest.getSecurityNumber();
+        String cardOwnerOnRequest = creditCardOnRequest.getCardOwner();
+
         float amount = requestBody.getAmount();
 
         CreditCard creditCard = creditCardService.findByCardNumber(cardNumberOnRequest);
         Account account = accountService.findAccountByCardNumber(cardNumberOnRequest);
 
-        if (!creditCardRepository.existsCreditCardByCardNumber(cardNumberOnRequest) || !creditCardRepository.existsCreditCardBySecurityNumber(securityNumberOnRequest)) {
+
+        if (!creditCardRepository.existsCreditCardByCardNumber(cardNumberOnRequest) || !creditCardRepository.existsCreditCardBySecurityNumber(securityNumberOnRequest) || !creditCardRepository.existsCreditCardByCardOwner(cardOwnerOnRequest)) {
             return new ResponseEntity<>(
                     "Something wrong with your information",
                     HttpStatus.BAD_REQUEST

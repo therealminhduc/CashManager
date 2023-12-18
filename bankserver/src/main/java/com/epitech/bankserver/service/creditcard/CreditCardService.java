@@ -33,7 +33,7 @@ public class CreditCardService {
     return creditCardRepository.save(creditCard);
   }
 
-  public CreditCard createCreditCardWithAccountNumber(String accountNumber) {
+  public CreditCard createCreditCardWithAccountNumber(String accountNumber, String cardOwner) {
     CreditCard creditCard = new CreditCard();
 
     String cardNumber = generateUniqueCardNumber();
@@ -43,6 +43,7 @@ public class CreditCardService {
     creditCard.setSecurityNumber(securityNumber);
 
     creditCard.setAccountNumber(accountNumber);
+    creditCard.setCardOwner(cardOwner);
 
     // Credit card expiration date is set to 3 years from now
     Date expirationDate = new Date(System.currentTimeMillis() + (3L * 365L * 24L * 60L * 60L * 1000L));

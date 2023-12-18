@@ -25,7 +25,5 @@ public class CreditCard {
 
   private String accountNumber;
 
-  // public ArrayList<String> getCardNumber() {
-  //   return cardNumber;
-  // }
+  private String cardOwner;
 }
