@@ -1,12 +1,10 @@
 package com.epitech.bankserver.repository.transactions;
 
 import com.epitech.bankserver.model.transactions.Transactions;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface TransactionsRepository extends MongoRepository<Transactions, String> {
-    List<Transactions> findBySourceAccountNumber(String sourceAccountNumber);
-
+public interface TransactionsRepository
+  extends MongoRepository<Transactions, String> {
+  List<Transactions> findBySourceAccountNumber(String sourceAccountNumber);
 }

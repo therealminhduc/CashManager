@@ -2,7 +2,6 @@ package com.epitech.bankserver.controller.account;
 
 import com.epitech.bankserver.model.account.Account;
 import com.epitech.bankserver.service.account.AccountService;
-
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;

@@ -49,7 +49,10 @@ public class CreditCardController {
       );
     }
 
-    CreditCard createdCreditCard = creditCardService.createCreditCardWithAccountNumber(accountNumber, cardOwner);
+    CreditCard createdCreditCard = creditCardService.createCreditCardWithAccountNumber(
+      accountNumber,
+      cardOwner
+    );
 
     return new ResponseEntity<>(createdCreditCard, HttpStatus.CREATED);
   }
