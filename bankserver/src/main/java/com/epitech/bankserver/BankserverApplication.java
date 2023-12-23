@@ -19,9 +19,11 @@ public class BankserverApplication {
 
         String mongoDbUri = dotenv.get("MONGODB_URI");
         String mongoDbName = dotenv.get("MONGODB_NAME");
+        String bankserverPort = dotenv.get("BANKSERVER_PORT");
 
         System.setProperty("spring.data.mongodb.uri", mongoDbUri);
         System.setProperty("spring.data.mongodb.database", mongoDbName);
+        System.setProperty("server.port", bankserverPort);
 
         SpringApplication.run(BankserverApplication.class, args);
     }
