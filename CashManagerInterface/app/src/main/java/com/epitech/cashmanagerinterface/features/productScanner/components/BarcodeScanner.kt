@@ -1,4 +1,4 @@
-package com.epitech.cashmanagerinterface.features.productScanner
+package com.epitech.cashmanagerinterface.features.productScanner.components
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -11,7 +11,7 @@ import com.google.mlkit.vision.common.InputImage
 import java.util.concurrent.TimeUnit
 
 @SuppressLint("UnsafeOptInUsageError")
-class productScanner (private val onBarcodeDetected: (barcodes: List<Barcode>) -> Unit, ): ImageAnalysis.Analyzer {
+class BarcodeScanner (private val onBarcodeDetected: (barcodes: List<Barcode>) -> Unit, ): ImageAnalysis.Analyzer {
 
     private var lastAnalyzedTimestamp = 0L;
     override fun analyze(image: ImageProxy) {
@@ -44,6 +44,4 @@ class productScanner (private val onBarcodeDetected: (barcodes: List<Barcode>) -
             image.close()
         }
     }
-
-
 }
