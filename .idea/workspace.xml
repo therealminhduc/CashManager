@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="adf8d47e-045e-40f5-ac57-c65501e32d02" name="Changes" comment="dev init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CashManagerInterface/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CashManagerInterface/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CashManagerInterface/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CashManagerInterface/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CashManagerInterface/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CashManagerInterface/.idea/misc.xml" afterDir="false" />
     </list>
     <list id="62bd6733-870e-4a8a-a25e-e7e3e44ac053" name="A pas commit" comment="init bank server" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,12 +45,17 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/MSc 1/T-DEV-700-PAR_20&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -97,6 +105,8 @@
       <workItem from="1701010812877" duration="2220000" />
       <workItem from="1701040131689" duration="26000" />
       <workItem from="1701474172477" duration="604000" />
+      <workItem from="1703420818886" duration="74000" />
+      <workItem from="1703433284057" duration="36000" />
     </task>
     <task id="LOCAL-00001" summary="readme kotlin">
       <option name="closed" value="true" />
@@ -155,6 +165,6 @@
     <MESSAGE value="readme kotlin" />
     <MESSAGE value="init bank server" />
     <MESSAGE value="dev init" />
-    <option name="LAST_COMMIT_MESSAGE" value="dev init" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
