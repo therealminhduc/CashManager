@@ -9,7 +9,9 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -67,21 +69,22 @@ fun ProductScannerCameraPreview() {
     val barCodeVal = remember {
         mutableStateOf("")
     }
+    lateinit var previewView: PreviewView
+
 
     AndroidView(
         factory = { AndroidViewContext ->
-            PreviewView(AndroidViewContext).apply {
-                this.scaleType = PreviewView.ScaleType.FILL_CENTER
-                layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-                implementationMode = PreviewView.ImplementationMode.COMPATIBLE
-            }
+            val previewView = PreviewView(AndroidViewContext)
+            previewView.scaleType = PreviewView.ScaleType.FILL_CENTER
+            previewView.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
+            return@AndroidView previewView
         },
         modifier = Modifier
-            .fillMaxSize()
-            .padding(50.dp),
+            .fillMaxSize(),
         update = { previewView ->
             val cameraSelector: CameraSelector = CameraSelector.Builder()
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)

@@ -1,18 +1,12 @@
 package com.epitech.cashmanagerinterface
 
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.ui.Alignment
-import com.epitech.cashmanagerinterface.features.productScanner.ProductScannerCameraPreview
-import com.epitech.cashmanagerinterface.ui.theme.CashManagerInterfaceTheme
+import com.epitech.cashmanagerinterface.common.MainScreenView
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberPermissionState
 
 /**
  * @ExperimentalPermissionsApi: is used to indicate that the code uses experimental api, used to access and manage runtime permissions.
@@ -20,30 +14,42 @@ import com.google.accompanist.permissions.rememberPermissionState
  * CashManagerInterfaceTheme: defines the overall look of the app (colors, fonts and other visual elements)
  */
 @ExperimentalPermissionsApi
-class MainActivity : ComponentActivity() {
+class MainActivity() : ComponentActivity(), Parcelable {
+    constructor(parcel: Parcel) : this() {
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CashManagerInterfaceTheme {
-                androidx.compose.material.Surface(color = MaterialTheme.colors.background) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Bottom
-                    ) {
-                        val cameraPermissionState = rememberPermissionState(permission = android.Manifest.permission.CAMERA)
+            MainScreenView()
+//            CashManagerInterfaceTheme {
+//                androidx.compose.material.Surface(color = MaterialTheme.colors.background) {
+//                    Column(
+//                        horizontalAlignment = Alignment.CenterHorizontally,
+//                        verticalArrangement = Arrangement.Bottom
+//                    ) {
+//                        CameraPermission()
+//                    }
+//                }
+//            }
+        }
+    }
 
-                        Button(
-                            onClick = {
-                                cameraPermissionState.launchPermissionRequest()
-                            }
-                        ) {
-                            Text(text = "Camera permission")
-                        }
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
 
-                        ProductScannerCameraPreview()
-                    }
-                }
-            }
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<MainActivity> {
+        override fun createFromParcel(parcel: Parcel): MainActivity {
+            return MainActivity(parcel)
+        }
+
+        override fun newArray(size: Int): Array<MainActivity?> {
+            return arrayOfNulls(size)
         }
     }
 }
