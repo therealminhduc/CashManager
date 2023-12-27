@@ -41,8 +41,8 @@ fun BottomNavigationBar(navController: NavController) {
 
         items.forEach { item ->
             BottomNavigationItem(
-                icon = { item.icon },
-                label = { Text(text = item.label, fontSize = 9.sp)},
+                icon = { Icon(item.icon, contentDescription = item.label) },
+                label = { Text(text = item.label, fontSize = 9.sp) },
                 selectedContentColor = Color.Black,
                 unselectedContentColor = Color.Black.copy(0.4f),
                 alwaysShowLabel = true,

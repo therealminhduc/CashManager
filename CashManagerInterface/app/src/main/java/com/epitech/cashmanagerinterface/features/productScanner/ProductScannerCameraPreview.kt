@@ -1,5 +1,6 @@
 package com.epitech.cashmanagerinterface.features.productScanner
 
+import android.graphics.RectF
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
+import com.google.android.material.canvas.CanvasCompat
 import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

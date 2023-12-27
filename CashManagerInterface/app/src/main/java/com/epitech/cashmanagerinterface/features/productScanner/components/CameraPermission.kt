@@ -7,6 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.text.font.FontStyle
 import com.epitech.cashmanagerinterface.features.productScanner.ProductScannerCameraPreview
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 
 @ExperimentalPermissionsApi
@@ -15,7 +16,7 @@ fun CameraPermission() {
     val cameraPermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
     LaunchedEffect(cameraPermissionState) {
-        if (!cameraPermissionState.hasPermission) {
+        if (!cameraPermissionState.status.isGranted) {
             cameraPermissionState.launchPermissionRequest()
         }
     }
