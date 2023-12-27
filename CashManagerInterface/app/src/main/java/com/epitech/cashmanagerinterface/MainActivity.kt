@@ -6,6 +6,8 @@ import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.epitech.cashmanagerinterface.common.MainScreenView
+import com.epitech.cashmanagerinterface.common.statusbar.StatusBarColor
+import com.epitech.cashmanagerinterface.ui.theme.navGray
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 /**
@@ -21,17 +23,8 @@ class MainActivity() : ComponentActivity(), Parcelable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            StatusBarColor(color = navGray)
             MainScreenView()
-//            CashManagerInterfaceTheme {
-//                androidx.compose.material.Surface(color = MaterialTheme.colors.background) {
-//                    Column(
-//                        horizontalAlignment = Alignment.CenterHorizontally,
-//                        verticalArrangement = Arrangement.Bottom
-//                    ) {
-//                        CameraPermission()
-//                    }
-//                }
-//            }
         }
     }
 

@@ -14,19 +14,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.epitech.cashmanagerinterface.R
+import com.epitech.cashmanagerinterface.ui.theme.navGray
 
 @Composable
 fun ProfileScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(id = R.color.teal_700))
+            .background(navGray)
             .wrapContentSize(Alignment.Center)
     ) {
         Text(
             text = "My Profile Screen",
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
             fontSize = 20.sp
