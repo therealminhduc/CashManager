@@ -1,8 +1,6 @@
 package com.epitech.cashmanagerinterface
 
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.epitech.cashmanagerinterface.common.MainScreenView
@@ -16,33 +14,12 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
  * CashManagerInterfaceTheme: defines the overall look of the app (colors, fonts and other visual elements)
  */
 @ExperimentalPermissionsApi
-class MainActivity() : ComponentActivity(), Parcelable {
-    constructor(parcel: Parcel) : this() {
-    }
-
+class MainActivity() : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             StatusBarColor(color = navGray)
             MainScreenView()
-        }
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<MainActivity> {
-        override fun createFromParcel(parcel: Parcel): MainActivity {
-            return MainActivity(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MainActivity?> {
-            return arrayOfNulls(size)
         }
     }
 }
