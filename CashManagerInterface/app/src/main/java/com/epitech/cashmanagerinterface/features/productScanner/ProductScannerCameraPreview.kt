@@ -1,6 +1,5 @@
 package com.epitech.cashmanagerinterface.features.productScanner
 
-import android.graphics.RectF
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,26 +9,22 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Canvas
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Paint
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
-import com.google.android.material.canvas.CanvasCompat
 import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -65,6 +60,7 @@ import java.util.concurrent.Executors
  * @cameraProvider.bindToLifecycle( lifecycleOwner, cameraSelector, preview, imageAnalysis ): binds the camera preview and image analysis to the lifecycle of the lifecycleOwner
  * -> automatically manages the lifecycle of the camera preview and image analysis, ensures that they're only created & destroyed when needed
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductScannerCameraPreview() {
     val context = LocalContext.current
@@ -75,9 +71,11 @@ fun ProductScannerCameraPreview() {
     val barCodeVal = remember {
         mutableStateOf("")
     }
-    lateinit var previewView: PreviewView
 
-
+    val barCodeValueHost = remember {
+        mutableStateOf("")
+    }
+    
     AndroidView(
         factory = { AndroidViewContext ->
             val previewView = PreviewView(AndroidViewContext)
@@ -104,14 +102,17 @@ fun ProductScannerCameraPreview() {
                 }
 
                 val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+
                 val productScanner = BarcodeScanner { barcodes ->
                     barcodes.forEach { barcode ->
                         barcode.rawValue?.let { barCodeValue ->
+                            barCodeValueHost.value = barCodeValue
                             barCodeVal.value = barCodeValue
                             Toast.makeText(context, barCodeValue, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
+
                 val imageAnalysis: ImageAnalysis = ImageAnalysis.Builder()
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                     .build()
@@ -133,4 +134,24 @@ fun ProductScannerCameraPreview() {
             }, ContextCompat.getMainExecutor(context))
         }
     )
+
+    val currentBarCodeValue = barCodeValueHost.value
+
+    //control the visibility of the bottom sheet
+    val sheetState = rememberModalBottomSheetState()
+    var isSheetOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    if (currentBarCodeValue.isNotEmpty()) isSheetOpen = true
+
+    if (isSheetOpen) {
+        ModalBottomSheet(
+            sheetState = sheetState,
+            onDismissRequest = { isSheetOpen = false }
+        ) {
+            Text(text = currentBarCodeValue)
+        }
+    }
+
 }
