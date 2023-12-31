@@ -6,12 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import com.epitech.cashmanagerinterface.common.navigation.NavigationGraph
 import com.epitech.cashmanagerinterface.common.navigation.components.BottomNavigationBar
+import com.epitech.cashmanagerinterface.common.statusbar.StatusBarColor
+import com.epitech.cashmanagerinterface.ui.theme.navGray
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreenView() {
     val navController = rememberNavController()
     Scaffold (bottomBar = { BottomNavigationBar(navController = navController) }) {
+        StatusBarColor(color = navGray)
         NavigationGraph(navController = navController)
     }
 }
