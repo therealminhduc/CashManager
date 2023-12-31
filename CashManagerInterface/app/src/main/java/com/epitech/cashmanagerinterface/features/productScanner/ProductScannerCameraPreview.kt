@@ -1,5 +1,6 @@
 package com.epitech.cashmanagerinterface.features.productScanner
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
@@ -9,11 +10,13 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
@@ -60,14 +64,19 @@ import java.util.concurrent.Executors
  * @cameraProvider.bindToLifecycle( lifecycleOwner, cameraSelector, preview, imageAnalysis ): binds the camera preview and image analysis to the lifecycle of the lifecycleOwner
  * -> automatically manages the lifecycle of the camera preview and image analysis, ensures that they're only created & destroyed when needed
  */
+@SuppressLint("RememberReturnType", "CoroutineCreationDuringComposition",
+    "StateFlowValueCalledInComposition"
+)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductScannerCameraPreview() {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
+
     var preview by remember {
         mutableStateOf<Preview?>(null)
     }
+
     val barCodeVal = remember {
         mutableStateOf("")
     }
@@ -75,7 +84,15 @@ fun ProductScannerCameraPreview() {
     val barCodeValueHost = remember {
         mutableStateOf("")
     }
-    
+
+    var isSheetOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    val sheetState = rememberModalBottomSheetState()
+
+    var currentBarCodeValue by remember { mutableStateOf("") }
+
     AndroidView(
         factory = { AndroidViewContext ->
             val previewView = PreviewView(AndroidViewContext)
@@ -108,7 +125,6 @@ fun ProductScannerCameraPreview() {
                         barcode.rawValue?.let { barCodeValue ->
                             barCodeValueHost.value = barCodeValue
                             barCodeVal.value = barCodeValue
-                            Toast.makeText(context, barCodeValue, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -135,23 +151,36 @@ fun ProductScannerCameraPreview() {
         }
     )
 
-    val currentBarCodeValue = barCodeValueHost.value
+//    Button(onClick = {
+//        isSheetOpen = true
+//    }) {
+//        Text(text = "add to cart")
+//    }
 
-    //control the visibility of the bottom sheet
-    val sheetState = rememberModalBottomSheetState()
-    var isSheetOpen by rememberSaveable {
-        mutableStateOf(false)
+    LaunchedEffect(barCodeValueHost.value, sheetState) {
+        val newBarCodeValue = barCodeValueHost.value
+        if (newBarCodeValue.isNotEmpty() && newBarCodeValue != currentBarCodeValue) {
+            currentBarCodeValue = newBarCodeValue
+            isSheetOpen = true
+        } else if (newBarCodeValue.isEmpty() && isSheetOpen) {
+            isSheetOpen = false
+        }
+
+        Log.d("TAG", "newBarCodeValue $newBarCodeValue currentBarCodeValue $currentBarCodeValue")
     }
-
-    if (currentBarCodeValue.isNotEmpty()) isSheetOpen = true
 
     if (isSheetOpen) {
         ModalBottomSheet(
             sheetState = sheetState,
-            onDismissRequest = { isSheetOpen = false }
+            modifier = Modifier.height(100.dp),
+            onDismissRequest = {
+                isSheetOpen = false
+                currentBarCodeValue = ""
+            },
         ) {
             Text(text = currentBarCodeValue)
         }
     }
 
+    Log.d("TAG", "isSheetOpen $isSheetOpen sheetState ${sheetState.currentValue} currentBarCodeValue $currentBarCodeValue")
 }
