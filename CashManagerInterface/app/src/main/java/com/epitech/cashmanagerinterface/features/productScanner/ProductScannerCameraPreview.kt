@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -220,7 +221,7 @@ fun ProductScannerCameraPreview() {
                     Column (modifier = Modifier
                         .padding(end = 16.dp)
                     ){
-                        Text(text = "${product?.name}", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+                        Text(text = "${product?.name}", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
                         Text(text = "${product?.price}€", style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold)
                         Text(text = "${product?.description}")
                     }
@@ -244,6 +245,9 @@ fun ProductScannerCameraPreview() {
                             modifier = Modifier
                                 .width(70.dp)
                                 .height(30.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor =  Color(42, 170, 138)),
+
+//                            colors = androidx.compose.material.ButtonDefaults.buttonColors(bacColor(backgroundColor = Color(42, 170, 138))),
                             onClick = {
                                 isSheetOpen = true
                             }
