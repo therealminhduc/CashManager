@@ -3,19 +3,18 @@ package com.epitech.cashmanagerinterface.features.productScanner
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -26,17 +25,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import com.epitech.cashmanagerinterface.common.conn.ApiClient
+import com.epitech.cashmanagerinterface.common.conn.ApiEndpoints
+import com.epitech.cashmanagerinterface.common.data.Product
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
 import com.google.common.util.concurrent.ListenableFuture
+import kotlinx.coroutines.coroutineScope
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -99,6 +100,14 @@ fun ProductScannerCameraPreview() {
     val sheetState = rememberModalBottomSheetState()
 
     var currentBarCodeValue by remember { mutableStateOf("") }
+
+    var product by remember {
+        mutableStateOf<Product?>(null)
+    }
+
+    var apiEndpoints = remember {
+        ApiClient.createApiEndpoints()
+    }
 
     AndroidView(
         factory = { AndroidViewContext ->
@@ -169,11 +178,14 @@ fun ProductScannerCameraPreview() {
         if (newBarCodeValue.isNotEmpty() && newBarCodeValue != currentBarCodeValue) {
             currentBarCodeValue = newBarCodeValue
             isSheetOpen = true
+
+        product = coroutineScope { apiEndpoints.getProductByCode(newBarCodeValue) }
+
         } else if (newBarCodeValue.isEmpty() && isSheetOpen) {
             isSheetOpen = false
         }
 
-        Log.d("TAG", "newBarCodeValue $newBarCodeValue currentBarCodeValue $currentBarCodeValue")
+        Log.d("TAG", "newBarCodeValue $newBarCodeValue currentBarCodeValue $currentBarCodeValue product $product")
     }
 
     if (isSheetOpen) {
@@ -185,9 +197,28 @@ fun ProductScannerCameraPreview() {
                 currentBarCodeValue = ""
             },
         ) {
-            Text(text = currentBarCodeValue)
+            if (product != null) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "${product?.name}")
+                    Text(text = "${product?.price}€")
+                }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "Product $currentBarCodeValue is not available")
+                }
+            }
         }
     }
 
-    Log.d("TAG", "isSheetOpen $isSheetOpen sheetState ${sheetState.currentValue} currentBarCodeValue $currentBarCodeValue")
+//    Log.d("TAG", "isSheetOpen $isSheetOpen sheetState ${sheetState.currentValue} currentBarCodeValue $currentBarCodeValue")
 }
