@@ -7,6 +7,8 @@ data class Product(
     val id: String,
     val name: String,
     val price: Float,
-    val code: String
+    val code: String,
+    val imgUrl: String,
+    val description: String
 ) {
 }
