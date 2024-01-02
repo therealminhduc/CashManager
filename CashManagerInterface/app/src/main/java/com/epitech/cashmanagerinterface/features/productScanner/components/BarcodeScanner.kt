@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 @SuppressLint("UnsafeOptInUsageError")
 class BarcodeScanner (private val onBarcodeDetected: (barcodes: List<Barcode>) -> Unit, ): ImageAnalysis.Analyzer {
 
-    private var lastAnalyzedTimestamp = 0L;
+    private var lastAnalyzedTimestamp = 1000L;
     override fun analyze(image: ImageProxy) {
         val currentTimestamp = System.currentTimeMillis()
         if (currentTimestamp - lastAnalyzedTimestamp >= TimeUnit.SECONDS.toMillis(2)) {

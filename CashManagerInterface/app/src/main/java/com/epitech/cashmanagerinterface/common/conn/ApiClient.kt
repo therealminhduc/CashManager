@@ -10,7 +10,8 @@ import io.ktor.client.request.post
 // singleton object: create 1 instance and can be accessed from anywhere in project
 object ApiClient {
 //    const val BASE_URL = "https://127.0.0.1:8080/api"
-    const val BASE_URL = "http://10.0.2.2:8080/api"
+//    const val BASE_URL = "http://10.0.2.2:8080/api"
+    const val BASE_URL = "http://192.168.1.235:8080/api"
 
     val httpClient: HttpClient by lazy {
         HttpClient {

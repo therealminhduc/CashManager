@@ -3,39 +3,15 @@ package com.epitech.cashmanagerinterface.features.productScanner
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.ViewGroup
-import android.widget.NumberPicker
-import android.widget.Space
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,31 +20,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import coil.compose.AsyncImage
-import com.epitech.cashmanagerinterface.R
 import com.epitech.cashmanagerinterface.common.conn.ApiClient
-import com.epitech.cashmanagerinterface.common.conn.ApiEndpoints
 import com.epitech.cashmanagerinterface.common.data.Product
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
-import com.epitech.cashmanagerinterface.features.productScanner.components.QuantityAlertDialog
+import com.epitech.cashmanagerinterface.features.productScanner.components.ProductInfoBottomSheet
+import com.epitech.cashmanagerinterface.features.productScanner.components.ProductNotFoundBottomSheet
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.coroutineScope
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-
 
 /**
  * CameraPreview(): render the camera preview, handles the barcodes detector
@@ -110,37 +76,18 @@ fun ProductScannerCameraPreview() {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    var preview by remember {
-        mutableStateOf<Preview?>(null)
-    }
-
-    val barCodeVal = remember {
-        mutableStateOf("")
-    }
-
-    val barCodeValueHost = remember {
-        mutableStateOf("")
-    }
-
-    var isSheetOpen by rememberSaveable {
-        mutableStateOf(false)
-    }
-
-    val sheetState = rememberModalBottomSheetState()
-
+    var preview by remember { mutableStateOf<Preview?>(null) }
+    val barCodeVal = remember { mutableStateOf("") }
+    val barCodeValueHost = remember { mutableStateOf("") }
     var currentBarCodeValue by remember { mutableStateOf("") }
 
-    var product by remember {
-        mutableStateOf<Product?>(null)
-    }
+    var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+    var product by remember { mutableStateOf<Product?>(null) }
 
-    var isDialogVisible by remember {
-        mutableStateOf(false)
-    }
+    var isDialogVisible by remember { mutableStateOf(false) }
 
-    var apiEndpoints = remember {
-        ApiClient.createApiEndpoints()
-    }
+    val apiEndpoints = remember { ApiClient.createApiEndpoints() }
 
     AndroidView(
         factory = { AndroidViewContext ->
@@ -227,72 +174,20 @@ fun ProductScannerCameraPreview() {
             },
         ) {
             if (product != null) {
-                Row (modifier = Modifier
-                        .fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                    ) {
-                    Column (modifier = Modifier
-                        .padding(end = 16.dp)
-                    ){
-                        Text(text = "${product?.name}", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
-                        Text(text = "${product?.price}€", style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold)
-                        Text(text = "${product?.description}")
-                    }
-
-                    Column(modifier = Modifier.padding(10.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        AsyncImage(
-                            modifier = Modifier
-                                .size(100.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(Color.White),
-                            model = product?.imgUrl,
-                            contentDescription = null
-                        )
-                        
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        Button(
-                            modifier = Modifier
-                                .width(70.dp)
-                                .height(30.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(42, 170, 138)),
-                            onClick = {
-                                isDialogVisible = true
-                            }
-                        ) {
-                            Text(text = "Add", style = MaterialTheme.typography.labelSmall)
-                        }
-
-                        if (isDialogVisible) {
-                            QuantityAlertDialog(
-                                onDismissRequest = { isDialogVisible = false },
-                                onConfirmation = { isDialogVisible = false },
-                                dialogTitle = "Enter quantity"
-                            )
-                        }
-                    }
-                }
+                ProductInfoBottomSheet(
+                    onClickAddButton = { isDialogVisible = true },
+                    productName = "${product?.name}",
+                    productPrice = "${product?.price}€",
+                    productDescription = "${product?.description}",
+                    productImgUrl = "${product?.imgUrl}",
+                    isDialogVisible = isDialogVisible,
+                    onDismissRequest = { isDialogVisible = false },
+                    onConfirmationRequest = { isDialogVisible = false },
+                    dialogTitle = "Enter quantity"
+                )
             } else {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Product $currentBarCodeValue is not available",
-                        style = MaterialTheme.typography.labelLarge,
-                        color = Color(220, 20, 60),
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+                ProductNotFoundBottomSheet(currentBarCodeValue = currentBarCodeValue)
             }
         }
     }
-
-//    Log.d("TAG", "isSheetOpen $isSheetOpen sheetState ${sheetState.currentValue} currentBarCodeValue $currentBarCodeValue")
 }

@@ -6,8 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.epitech.cashmanagerinterface.common.navigation.resources.BottomNavItem
 import com.epitech.cashmanagerinterface.features.cart.CartScreen
-import com.epitech.cashmanagerinterface.features.productScanner.ProductScannerCameraPreview
-import com.epitech.cashmanagerinterface.features.productScanner.components.CameraPermission
+import com.epitech.cashmanagerinterface.features.productScanner.CameraPermissionScreen
 import com.epitech.cashmanagerinterface.features.userProfile.ProfileScreen
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
@@ -17,7 +16,7 @@ fun NavigationGraph(navController: NavHostController) {
     NavHost(navController , startDestination = BottomNavItem.Scanner.route) {
 
         composable(BottomNavItem.Scanner.route) {
-            CameraPermission()
+            CameraPermissionScreen()
         }
 
         composable(BottomNavItem.Profile.route) {
