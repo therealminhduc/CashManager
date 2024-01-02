@@ -3,6 +3,7 @@ package com.epitech.cashmanagerinterface.features.productScanner
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.NumberPicker
 import android.widget.Space
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -11,6 +12,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +24,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -29,6 +35,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -45,6 +52,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
@@ -54,6 +63,7 @@ import com.epitech.cashmanagerinterface.common.conn.ApiClient
 import com.epitech.cashmanagerinterface.common.conn.ApiEndpoints
 import com.epitech.cashmanagerinterface.common.data.Product
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
+import com.epitech.cashmanagerinterface.features.productScanner.components.QuantityAlertDialog
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.coroutineScope
 import java.util.concurrent.ExecutorService
@@ -122,6 +132,10 @@ fun ProductScannerCameraPreview() {
 
     var product by remember {
         mutableStateOf<Product?>(null)
+    }
+
+    var isDialogVisible by remember {
+        mutableStateOf(false)
     }
 
     var apiEndpoints = remember {
@@ -245,14 +259,20 @@ fun ProductScannerCameraPreview() {
                             modifier = Modifier
                                 .width(70.dp)
                                 .height(30.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor =  Color(42, 170, 138)),
-
-//                            colors = androidx.compose.material.ButtonDefaults.buttonColors(bacColor(backgroundColor = Color(42, 170, 138))),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(42, 170, 138)),
                             onClick = {
-                                isSheetOpen = true
+                                isDialogVisible = true
                             }
                         ) {
                             Text(text = "Add", style = MaterialTheme.typography.labelSmall)
+                        }
+
+                        if (isDialogVisible) {
+                            QuantityAlertDialog(
+                                onDismissRequest = { isDialogVisible = false },
+                                onConfirmation = { isDialogVisible = false },
+                                dialogTitle = "Enter quantity"
+                            )
                         }
                     }
                 }
