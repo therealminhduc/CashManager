@@ -17,14 +17,14 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.epitech.cashmanagerinterface.ui.theme.lightGreen
+import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -72,7 +72,7 @@ fun ProductInfoBottomSheet(
                 modifier = Modifier
                     .size(100.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(Color.White),
+                    .background(lightWhite2),
                 model = productImgUrl,
                 contentDescription = "$productName preview"
             )
@@ -83,7 +83,7 @@ fun ProductInfoBottomSheet(
                 modifier = Modifier
                     .width(70.dp)
                     .height(30.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(42, 170, 138)),
+                colors = ButtonDefaults.buttonColors(containerColor = lightGreen),
                 onClick = {
                     onClickAddButton()
                 }

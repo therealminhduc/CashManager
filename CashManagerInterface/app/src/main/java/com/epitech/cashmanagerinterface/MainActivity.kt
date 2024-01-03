@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.epitech.cashmanagerinterface.common.MainScreenView
-import com.epitech.cashmanagerinterface.common.statusbar.StatusBarColor
-import com.epitech.cashmanagerinterface.ui.theme.navGray
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 /**

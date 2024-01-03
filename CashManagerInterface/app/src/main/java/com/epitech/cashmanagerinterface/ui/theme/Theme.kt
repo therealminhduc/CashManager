@@ -1,23 +1,30 @@
 package com.epitech.cashmanagerinterface.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.ButtonColors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.core.view.WindowCompat
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    background = darkBackground,
+    onBackground = darkOnBackground,
+    primary = darkPrimary,
+    onPrimary = darkOnPrimary,
+    secondary = darkSecondary,
+    onSecondary = darkOnSecondary,
+    surface = darkSurface,
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    background = lightGray,
+    onBackground = lightWhite,
+    primary = lightWhite2,
+    onPrimary = lightBlack,
+    secondary = lightCrimson,
+    onSecondary = lightGreen,
+    surface = lightBlue,
+
 
     /* Other default colors to override
     background = Color.White,

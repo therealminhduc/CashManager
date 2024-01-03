@@ -8,8 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import com.epitech.cashmanagerinterface.ui.theme.lightCrimson
 
 @Composable
 fun ProductNotFoundBottomSheet(currentBarCodeValue: String) {
@@ -22,7 +22,7 @@ fun ProductNotFoundBottomSheet(currentBarCodeValue: String) {
         Text(
             text = "Product $currentBarCodeValue is not available",
             style = MaterialTheme.typography.labelLarge,
-            color = Color(220, 20, 60),
+            color = lightCrimson,
             fontWeight = FontWeight.Bold
         )
     }

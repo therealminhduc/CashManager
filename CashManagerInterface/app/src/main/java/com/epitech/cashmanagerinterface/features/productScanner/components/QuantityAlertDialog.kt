@@ -17,11 +17,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
+import com.epitech.cashmanagerinterface.ui.theme.lightGreen
+import com.epitech.cashmanagerinterface.ui.theme.lightCrimson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -45,7 +46,7 @@ fun QuantityAlertDialog(
             Button(
                 modifier = Modifier
                     .height(30.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(42, 170, 138)),
+                colors = ButtonDefaults.buttonColors(containerColor = lightGreen),
                 onClick = {
                     onConfirmation(productQuantity.toInt())
                     scaffoldScope.launch {
@@ -60,7 +61,7 @@ fun QuantityAlertDialog(
             Button(
                 modifier = Modifier
                     .height(30.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(220, 20, 60)),
+                colors = ButtonDefaults.buttonColors(containerColor = lightCrimson),
                 onClick = { onDismissRequest() }
             ) {
                 Text(text = "Cancel", style = MaterialTheme.typography.labelSmall)

@@ -12,12 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.epitech.cashmanagerinterface.common.navigation.resources.BottomNavItem
+import com.epitech.cashmanagerinterface.ui.theme.darkBackground
+import com.epitech.cashmanagerinterface.ui.theme.lightBlack
 import com.epitech.cashmanagerinterface.ui.theme.navGray
 
 @Composable
@@ -32,7 +33,7 @@ fun BottomNavigationBar(navController: NavController) {
     BottomNavigation(
         modifier = Modifier.clip(RoundedCornerShape(10.dp)),
         backgroundColor = navGray,
-        contentColor = Color.Black
+        contentColor = lightBlack
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -42,8 +43,8 @@ fun BottomNavigationBar(navController: NavController) {
                 modifier = Modifier.animateContentSize(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow)),
                 icon = { Icon(item.icon, contentDescription = item.label) },
                 label = { Text(text = item.label, fontSize = 9.sp) },
-                selectedContentColor = Color.Black,
-                unselectedContentColor = Color.Black.copy(0.4f),
+                selectedContentColor = darkBackground,
+                unselectedContentColor = darkBackground.copy(0.4f),
                 alwaysShowLabel = true,
                 selected = currentRoute == item.route,
                 onClick = {

@@ -10,7 +10,7 @@ import com.epitech.cashmanagerinterface.common.navigation.NavigationGraph
 import com.epitech.cashmanagerinterface.common.navigation.components.BottomNavigationBar
 import com.epitech.cashmanagerinterface.common.statusbar.StatusBarColor
 import com.epitech.cashmanagerinterface.features.cart.CartViewModel
-import com.epitech.cashmanagerinterface.ui.theme.navGray
+import com.epitech.cashmanagerinterface.ui.theme.lightGray
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -23,7 +23,7 @@ fun MainScreenView() {
         scaffoldState = scaffoldState,
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) {
-        StatusBarColor(color = navGray)
+        StatusBarColor(color = lightGray)
         NavigationGraph(navController = navController, cartViewModel = cartViewModel, scaffoldState = scaffoldState)
     }
 }
