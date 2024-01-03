@@ -10,9 +10,15 @@ class CartViewModel : ViewModel() {
     val cartItems: MutableList<CartItem> get() = _cartItems
 
     fun addToCart(product: Product, quantity: Int) {
-        val cartItem = CartItem(product, quantity)
-        _cartItems.add(cartItem)
-        println("Product: ${cartItem.product.name}, Quantity: ${cartItem.quantity}")
+        val existingItem = _cartItems.find { it.product == product }
+
+        if (existingItem != null) {
+            existingItem.quantity += quantity
+        } else {
+            val cartItem = CartItem(product, quantity)
+            _cartItems.add(cartItem)
+            println("Product: ${cartItem.product.name}, Quantity: ${cartItem.quantity}")
+        }
     }
 
     fun updateCartItem(cartItem: CartItem, newQuantity: Int) {
