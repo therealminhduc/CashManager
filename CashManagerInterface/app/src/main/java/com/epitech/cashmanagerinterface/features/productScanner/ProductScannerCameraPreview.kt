@@ -10,6 +10,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -18,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -72,7 +74,7 @@ import java.util.concurrent.Executors
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductScannerCameraPreview(cartViewModel: CartViewModel) {
+fun ProductScannerCameraPreview(cartViewModel: CartViewModel, scaffoldState: ScaffoldState) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -88,6 +90,8 @@ fun ProductScannerCameraPreview(cartViewModel: CartViewModel) {
     var isDialogVisible by remember { mutableStateOf(false) }
 
     val apiEndpoints = remember { ApiClient.createApiEndpoints() }
+
+    val scaffoldScope = rememberCoroutineScope()
 
     AndroidView(
         factory = { AndroidViewContext ->
@@ -182,11 +186,14 @@ fun ProductScannerCameraPreview(cartViewModel: CartViewModel) {
                     productImgUrl = "${product?.imgUrl}",
                     isDialogVisible = isDialogVisible,
                     onDismissRequest = { isDialogVisible = false },
-                    onConfirmationRequest = { quantity ->
-                        cartViewModel.addToCart(product!!, quantity)
+                    onConfirmationRequest = {
+                        quantity -> cartViewModel.addToCart(product!!, quantity)
                         isDialogVisible = false
+                        isSheetOpen = false
                     },
-                    dialogTitle = "Enter quantity"
+                    dialogTitle = "Enter quantity",
+                    scaffoldState = scaffoldState,
+                    scaffoldScope = scaffoldScope
                 )
             } else {
                 ProductNotFoundBottomSheet(currentBarCodeValue = currentBarCodeValue)

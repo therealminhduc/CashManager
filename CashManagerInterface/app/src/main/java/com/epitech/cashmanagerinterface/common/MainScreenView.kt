@@ -2,6 +2,7 @@ package com.epitech.cashmanagerinterface.common
 
 import android.annotation.SuppressLint
 import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
@@ -16,9 +17,13 @@ import com.epitech.cashmanagerinterface.ui.theme.navGray
 fun MainScreenView() {
     val navController = rememberNavController()
     val cartViewModel: CartViewModel = viewModel()
+    val scaffoldState = rememberScaffoldState()
 
-    Scaffold (bottomBar = { BottomNavigationBar(navController = navController) }) {
+    Scaffold (
+        scaffoldState = scaffoldState,
+        bottomBar = { BottomNavigationBar(navController = navController) }
+    ) {
         StatusBarColor(color = navGray)
-        NavigationGraph(navController = navController, cartViewModel = cartViewModel)
+        NavigationGraph(navController = navController, cartViewModel = cartViewModel, scaffoldState = scaffoldState)
     }
 }

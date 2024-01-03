@@ -1,6 +1,5 @@
 package com.epitech.cashmanagerinterface.features.cart
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import com.epitech.cashmanagerinterface.common.data.CartItem
@@ -14,5 +13,12 @@ class CartViewModel : ViewModel() {
         val cartItem = CartItem(product, quantity)
         _cartItems.add(cartItem)
         println("Product: ${cartItem.product.name}, Quantity: ${cartItem.quantity}")
+    }
+
+    fun updateCartItem(cartItem: CartItem, newQuantity: Int) {
+        val index = _cartItems.indexOf(cartItem)
+        if (index != -1) {
+            _cartItems[index] = cartItem.copy(quantity = newQuantity)
+        }
     }
 }

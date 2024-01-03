@@ -14,28 +14,29 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.epitech.cashmanagerinterface.common.data.CartItem
 import com.epitech.cashmanagerinterface.ui.theme.navGray
 
 @Composable
@@ -58,6 +59,9 @@ fun CartScreen(cartViewModel: CartViewModel = viewModel()) {
                     .padding(10.dp)
                     .fillMaxWidth()
             ) {
+
+                var quantity by remember { mutableIntStateOf(cartItem.quantity) }
+
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -66,17 +70,40 @@ fun CartScreen(cartViewModel: CartViewModel = viewModel()) {
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
                             text = cartItem.product.name,
                             textAlign = TextAlign.Start,
                         )
 
-                        Text(
-                            text = "Quantity: ${cartItem.quantity}",
-                            textAlign = TextAlign.End,
-                        )
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            IconButton(
+                                onClick = {
+                                    if (quantity > 1) {
+                                        quantity--
+                                        cartViewModel.updateCartItem(cartItem, quantity)
+                                    }
+                                }
+                            ) {
+                                Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "Remove")
+                            }
+
+                            Text(
+                                text = "Quantity: ${cartItem.quantity}",
+                                textAlign = TextAlign.End,
+                            )
+
+                            IconButton(
+                                onClick = {
+                                    quantity++
+                                    cartViewModel.updateCartItem(cartItem, quantity)
+                                }
+                            ) {
+                                Icon(imageVector = Icons.Default.KeyboardArrowUp, contentDescription = "Add")
+                            }
+                        }
                     }
 
                     AsyncImage(
