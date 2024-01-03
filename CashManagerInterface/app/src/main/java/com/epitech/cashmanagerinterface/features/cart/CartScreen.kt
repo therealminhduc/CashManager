@@ -46,133 +46,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.epitech.cashmanagerinterface.common.navigation.resources.BottomNavItem
+import com.epitech.cashmanagerinterface.features.cart.components.CartWithProduct
+import com.epitech.cashmanagerinterface.features.cart.components.EmptyCart
+import com.epitech.cashmanagerinterface.features.cart.components.GoToPaymentButton
 import com.epitech.cashmanagerinterface.ui.theme.navGray
 
 @Composable
-@Preview
 fun CartScreen(cartViewModel: CartViewModel = viewModel(), navController: NavController) {
     val cartItems = cartViewModel.cartItems
 
-    if (cartItems.isEmpty()) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(navGray)
-                .wrapContentSize(Alignment.Center),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Row {
-                Text(
-                    text = "Empty cart",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
-
-                Spacer(modifier = Modifier.width(5.dp))
-
-                Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "")
-            }
-        }
-    }
-    
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(bottom = 120.dp)) {
-        LazyColumn(modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentSize(Alignment.Center)
-        ) {
-            items(cartItems) {cartItem ->
-                Text(text = "Your cart", fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(10.dp))
-                OutlinedCard(
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    border = BorderStroke(1.dp, Color.Black),
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .fillMaxWidth()
-                ) {
-
-                    var quantity by remember { mutableIntStateOf(cartItem.quantity) }
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = cartItem.product.name,
-                                textAlign = TextAlign.Start,
-                            )
-
-                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                IconButton(
-                                    onClick = {
-                                        if (quantity > 1) {
-                                            quantity--
-                                            cartViewModel.updateCartItem(cartItem, quantity)
-                                        }
-                                    }
-                                ) {
-                                    Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "Remove")
-                                }
-
-                                Text(
-                                    text = "Quantity: ${cartItem.quantity}",
-                                    textAlign = TextAlign.End,
-                                )
-
-                                IconButton(
-                                    onClick = {
-                                        quantity++
-                                        cartViewModel.updateCartItem(cartItem, quantity)
-                                    }
-                                ) {
-                                    Icon(imageVector = Icons.Default.KeyboardArrowUp, contentDescription = "Add")
-                                }
-                            }
-                        }
-
-                        AsyncImage(
-                            modifier = Modifier
-                                .size(80.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(Color.White)
-                                .padding(top = 10.dp)
-                                .align(Alignment.End),
-                            model = cartItem.product.imgUrl,
-                            contentDescription = "$cartItem.product.name preview"
-                        )
-                    }
-                }
-            }
-        }
-    }
+    if (cartItems.isEmpty()) { EmptyCart() }
 
     if (cartItems.isNotEmpty()) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.End
-        ) {
-            Button(
-                modifier = Modifier
-                    .width(200.dp)
-                    .padding(bottom = 60.dp, end = 10.dp),
-                shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0, 113, 227)),
-                onClick = { navController.navigate(BottomNavItem.Payment.route) }
-            ) {
-                Text(text = "Go to payment", style = MaterialTheme.typography.labelLarge, color = Color.White)
-            }
-        }
+        CartWithProduct(cartViewModel = cartViewModel)
+        GoToPaymentButton(navController = navController)
     }
 }
