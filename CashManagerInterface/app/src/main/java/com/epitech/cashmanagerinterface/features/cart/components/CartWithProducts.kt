@@ -45,7 +45,6 @@ import com.epitech.cashmanagerinterface.ui.theme.navGray
 @Composable
 fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
     val cartItems = cartViewModel.cartItems
-    val dismissState = rememberDismissState()
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -82,7 +81,13 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                                 textAlign = TextAlign.Start,
                             )
 
-                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .background(color = Color.White)
+                            ) {
                                 IconButton(
                                     onClick = {
                                         if (quantity > 1) {
@@ -123,7 +128,6 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                                 model = cartItem.product.imgUrl,
                                 contentDescription = "$cartItem.product.name preview"
                             )
-
 
                             IconButton(
                                 modifier = Modifier
