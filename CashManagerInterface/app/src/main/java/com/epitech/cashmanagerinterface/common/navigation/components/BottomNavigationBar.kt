@@ -1,5 +1,8 @@
 package com.epitech.cashmanagerinterface.common.navigation.components
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -36,6 +39,7 @@ fun BottomNavigationBar(navController: NavController) {
 
         items.forEach { item ->
             BottomNavigationItem(
+                modifier = Modifier.animateContentSize(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow)),
                 icon = { Icon(item.icon, contentDescription = item.label) },
                 label = { Text(text = item.label, fontSize = 9.sp) },
                 selectedContentColor = Color.Black,
