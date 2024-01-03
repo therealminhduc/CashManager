@@ -28,6 +28,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import com.epitech.cashmanagerinterface.common.conn.ApiClient
 import com.epitech.cashmanagerinterface.common.data.Product
+import com.epitech.cashmanagerinterface.features.cart.CartViewModel
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
 import com.epitech.cashmanagerinterface.features.productScanner.components.ProductInfoBottomSheet
 import com.epitech.cashmanagerinterface.features.productScanner.components.ProductNotFoundBottomSheet
@@ -71,8 +72,7 @@ import java.util.concurrent.Executors
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@androidx.compose.ui.tooling.preview.Preview
-fun ProductScannerCameraPreview() {
+fun ProductScannerCameraPreview(cartViewModel: CartViewModel) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -182,7 +182,10 @@ fun ProductScannerCameraPreview() {
                     productImgUrl = "${product?.imgUrl}",
                     isDialogVisible = isDialogVisible,
                     onDismissRequest = { isDialogVisible = false },
-                    onConfirmationRequest = { isDialogVisible = false },
+                    onConfirmationRequest = { quantity ->
+                        cartViewModel.addToCart(product!!, quantity)
+                        isDialogVisible = false
+                    },
                     dialogTitle = "Enter quantity"
                 )
             } else {

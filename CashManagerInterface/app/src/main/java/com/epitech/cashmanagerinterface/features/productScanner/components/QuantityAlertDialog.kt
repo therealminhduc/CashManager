@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun QuantityAlertDialog(
     onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
+    onConfirmation: (Int) -> Unit,
     dialogTitle: String,
 ) {
 
@@ -39,7 +39,7 @@ fun QuantityAlertDialog(
                 modifier = Modifier
                     .height(30.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(42, 170, 138)),
-                onClick = { onConfirmation() }
+                onClick = { onConfirmation(productQuantity.toInt()) }
             ) {
                 Text(text = "Confirm", style = MaterialTheme.typography.labelSmall)
             }

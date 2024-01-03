@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.epitech.cashmanagerinterface.features.cart.CartViewModel
 
 @Composable
 fun ProductInfoBottomSheet(
@@ -33,7 +34,7 @@ fun ProductInfoBottomSheet(
     isDialogVisible: Boolean,
     onClickAddButton: () -> Unit,
     onDismissRequest: () -> Unit,
-    onConfirmationRequest: () -> Unit,
+    onConfirmationRequest: (Int) -> Unit,
     dialogTitle: String,
 ) {
     Row (modifier = Modifier
@@ -69,7 +70,7 @@ fun ProductInfoBottomSheet(
                     .clip(RoundedCornerShape(10.dp))
                     .background(Color.White),
                 model = productImgUrl,
-                contentDescription = null
+                contentDescription = "$productName preview"
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -89,7 +90,7 @@ fun ProductInfoBottomSheet(
             if (isDialogVisible) {
                 QuantityAlertDialog(
                     onDismissRequest = { onDismissRequest() },
-                    onConfirmation = { onConfirmationRequest() },
+                    onConfirmation = { quantity -> onConfirmationRequest(quantity) },
                     dialogTitle = dialogTitle
                 )
             }
