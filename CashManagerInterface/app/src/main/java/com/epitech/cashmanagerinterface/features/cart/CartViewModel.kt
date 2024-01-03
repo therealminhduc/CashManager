@@ -21,4 +21,8 @@ class CartViewModel : ViewModel() {
             _cartItems[index] = cartItem.copy(quantity = newQuantity)
         }
     }
+
+    fun removeCartItem(cartItem: CartItem) {
+        _cartItems.remove(cartItem)
+    }
 }
