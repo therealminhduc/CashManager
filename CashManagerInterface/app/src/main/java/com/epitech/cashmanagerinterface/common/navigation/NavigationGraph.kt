@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.epitech.cashmanagerinterface.common.navigation.resources.BottomNavItem
 import com.epitech.cashmanagerinterface.features.cart.CartScreen
 import com.epitech.cashmanagerinterface.features.cart.CartViewModel
+import com.epitech.cashmanagerinterface.features.payment.PaymentScreen
 import com.epitech.cashmanagerinterface.features.productScanner.CameraPermissionScreen
 import com.epitech.cashmanagerinterface.features.userProfile.ProfileScreen
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -26,7 +27,11 @@ fun NavigationGraph(navController: NavHostController, cartViewModel: CartViewMod
         }
 
         composable(BottomNavItem.Cart.route) {
-            CartScreen(cartViewModel = cartViewModel)
+            CartScreen(cartViewModel = cartViewModel, navController = navController)
+        }
+
+        composable(BottomNavItem.Payment.route) {
+            PaymentScreen(navController = navController)
         }
     }
 }

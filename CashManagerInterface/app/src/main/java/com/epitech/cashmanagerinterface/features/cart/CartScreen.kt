@@ -43,12 +43,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.epitech.cashmanagerinterface.common.navigation.resources.BottomNavItem
 import com.epitech.cashmanagerinterface.ui.theme.navGray
 
 @Composable
 @Preview
-fun CartScreen(cartViewModel: CartViewModel = viewModel()) {
+fun CartScreen(cartViewModel: CartViewModel = viewModel(), navController: NavController) {
     val cartItems = cartViewModel.cartItems
 
     if (cartItems.isEmpty()) {
@@ -167,7 +169,7 @@ fun CartScreen(cartViewModel: CartViewModel = viewModel()) {
                     .padding(bottom = 60.dp, end = 10.dp),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0, 113, 227)),
-                onClick = { /*TODO*/ }
+                onClick = { navController.navigate(BottomNavItem.Payment.route) }
             ) {
                 Text(text = "Go to payment", style = MaterialTheme.typography.labelLarge, color = Color.White)
             }
