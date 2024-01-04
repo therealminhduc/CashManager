@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.epitech.cashmanagerinterface.common.navigation.resources.BottomNavItem
+import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
 import com.epitech.cashmanagerinterface.ui.theme.darkOnPrimary
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
 
@@ -32,7 +32,7 @@ fun GoToPaymentButton(navController: NavController) {
                 .padding(bottom = 60.dp, end = 10.dp),
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
-            onClick = { navController.navigate(BottomNavItem.Payment.route) }
+            onClick = { navController.navigate(NavItem.Payment.route) }
         ) {
             Text(text = "Go to payment", style = MaterialTheme.typography.labelLarge, color = darkOnPrimary)
         }

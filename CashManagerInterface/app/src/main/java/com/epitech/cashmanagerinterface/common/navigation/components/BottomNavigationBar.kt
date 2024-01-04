@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.epitech.cashmanagerinterface.common.navigation.resources.BottomNavItem
+import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
 import com.epitech.cashmanagerinterface.ui.theme.darkBackground
 import com.epitech.cashmanagerinterface.ui.theme.lightBlack
 import com.epitech.cashmanagerinterface.ui.theme.navGray
@@ -25,9 +25,9 @@ import com.epitech.cashmanagerinterface.ui.theme.navGray
 fun BottomNavigationBar(navController: NavController) {
 
     val items = listOf(
-        BottomNavItem.Cart,
-        BottomNavItem.Scanner,
-        BottomNavItem.Profile,
+        NavItem.Cart,
+        NavItem.Scanner,
+        NavItem.Profile,
         )
 
     BottomNavigation(

@@ -1,5 +1,6 @@
 package com.epitech.cashmanagerinterface.features.user.login
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,14 +29,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
 import com.epitech.cashmanagerinterface.ui.theme.darkBlue
 import com.epitech.cashmanagerinterface.ui.theme.lightBlack
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite
+import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
     var isValidUsername by remember {
         mutableStateOf(false)
     }
@@ -44,10 +49,11 @@ fun LoginScreen() {
         mutableStateOf(false)
     }
 
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(lightWhite),
+            .background(lightWhite2),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -86,10 +92,10 @@ fun LoginScreen() {
             modifier = Modifier.width(350.dp)
         ) {
             TextButton(
-                onClick = {},
                 modifier = Modifier
-                    .background(lightWhite),
+                    .background(lightWhite2),
                 shape = RoundedCornerShape(12.dp),
+                onClick = { navController.navigate(NavItem.Register.route) }
             ) {
                 Text(
                     style = MaterialTheme.typography.labelLarge,
