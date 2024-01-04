@@ -10,7 +10,7 @@ import com.epitech.cashmanagerinterface.features.cart.CartScreen
 import com.epitech.cashmanagerinterface.features.cart.CartViewModel
 import com.epitech.cashmanagerinterface.features.payment.PaymentScreen
 import com.epitech.cashmanagerinterface.features.productScanner.CameraPermissionScreen
-import com.epitech.cashmanagerinterface.features.userProfile.ProfileScreen
+import com.epitech.cashmanagerinterface.features.user.profile.ProfileScreen
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 @OptIn(ExperimentalPermissionsApi::class)
