@@ -44,13 +44,9 @@ import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 fun LoginScreen(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var isValidUsername by remember {
-        mutableStateOf(false)
-    }
+    var isValidUsername by remember { mutableStateOf(false) }
 
-    var isValidPassword by remember {
-        mutableStateOf(false)
-    }
+    var isValidPassword by remember { mutableStateOf(false) }
 
 
     Column(

@@ -46,13 +46,9 @@ fun RegisterScreen(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-    var isValidUsername by remember {
-        mutableStateOf(false)
-    }
+    var isValidUsername by remember { mutableStateOf(false) }
 
-    var isValidPassword by remember {
-        mutableStateOf(false)
-    }
+    var isValidPassword by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = { TopAppBar(NavItem.Register.label) { navController.navigate(NavItem.Login.route) } }
