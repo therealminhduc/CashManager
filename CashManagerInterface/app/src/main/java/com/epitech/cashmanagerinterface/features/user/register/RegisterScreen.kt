@@ -30,7 +30,6 @@ import com.epitech.cashmanagerinterface.ui.theme.lightGray
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
 @Composable
 fun RegisterScreen(navController: NavController) {
 
