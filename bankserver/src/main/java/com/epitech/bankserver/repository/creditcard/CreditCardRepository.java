@@ -11,5 +11,7 @@ public interface CreditCardRepository
 
   boolean existsCreditCardBySecurityNumber(String securityNumber);
 
+  boolean existsCreditCardByCardOwner(String cardOwner);
+
   CreditCard deleteCreditCardByCardNumber(String cardNumber);
 }

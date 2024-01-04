@@ -32,4 +32,10 @@ public class Account {
   public Account(String accountOwner) {
     this.accountOwner = accountOwner;
   }
+
+  public Account(String accountOwner, String accountNumber, float balance) {
+    this.accountOwner = accountOwner;
+    this.accountNumber = accountNumber;
+    this.balance = balance;
+  }
 }

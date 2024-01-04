@@ -2,7 +2,6 @@ package com.epitech.bankserver.service.creditcard;
 
 import com.epitech.bankserver.model.creditcard.CreditCard;
 import com.epitech.bankserver.repository.creditcard.CreditCardRepository;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +32,10 @@ public class CreditCardService {
     return creditCardRepository.save(creditCard);
   }
 
-  public CreditCard createCreditCardWithAccountNumber(String accountNumber) {
+  public CreditCard createCreditCardWithAccountNumber(
+    String accountNumber,
+    String cardOwner
+  ) {
     CreditCard creditCard = new CreditCard();
 
     String cardNumber = generateUniqueCardNumber();
@@ -43,9 +45,12 @@ public class CreditCardService {
     creditCard.setSecurityNumber(securityNumber);
 
     creditCard.setAccountNumber(accountNumber);
+    creditCard.setCardOwner(cardOwner);
 
     // Credit card expiration date is set to 3 years from now
-    Date expirationDate = new Date(System.currentTimeMillis() + (3L * 365L * 24L * 60L * 60L * 1000L));
+    Date expirationDate = new Date(
+      System.currentTimeMillis() + (3L * 365L * 24L * 60L * 60L * 1000L)
+    );
     SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
     String formattedExpirationDate = formatter.format(expirationDate);
 

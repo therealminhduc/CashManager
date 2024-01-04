@@ -8,8 +8,6 @@ import com.epitech.bankserver.repository.creditcard.CreditCardRepository;
 // import com.epitech.bankserver.repository.account.AdminRepository;
 import com.epitech.bankserver.role.AccountRole;
 import com.epitech.bankserver.service.creditcard.CreditCardService;
-
-import java.text.ParseException;
 import java.util.List;
 import java.util.Random;
 import lombok.AllArgsConstructor;
@@ -29,9 +27,6 @@ public class AccountService {
 
   private CreditCardService creditCardService;
 
-  //   @Autowired
-  //   private AdminRepository adminRepository;
-
   public List<Account> getAllAccounts() {
     return accountRepository.findAll();
   }
@@ -41,7 +36,9 @@ public class AccountService {
   }
 
   public Account findAccountByCardNumber(String cardNumber) {
-    CreditCard creditCard = creditCardRepository.findCreditCardByCardNumber(cardNumber);
+    CreditCard creditCard = creditCardRepository.findCreditCardByCardNumber(
+      cardNumber
+    );
     if (creditCard != null) {
       return accountRepository.findAccountByCreditCard(creditCard);
     }
@@ -65,7 +62,10 @@ public class AccountService {
     account.setAccountNumber(accountNumber);
 
     // set the credit card
-    CreditCard creditCard = creditCardService.createCreditCardWithAccountNumber(accountNumber);
+    CreditCard creditCard = creditCardService.createCreditCardWithAccountNumber(
+      accountNumber,
+      accountOwner
+    );
 
     account.setCreditCard(creditCard);
 
