@@ -5,6 +5,7 @@ import com.epitech.server.model.User;
 import com.epitech.server.repository.BasketRepository;
 import com.epitech.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public class UserService {
   public User addUser(User user) {
     Basket basket = basketRepository.insert(new Basket());
     user.setBasket(basket);
+    // Encrypt password
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+    String encryptedPassword = encoder.encode(user.getPassword());
+    user.setPassword(encryptedPassword);
     return userRepository.insert(user);
   }
 
