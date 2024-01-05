@@ -87,12 +87,7 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                                     .background(color = lightWhite2)
                             ) {
                                 IconButton(
-                                    onClick = {
-                                        if (quantity > 1) {
-                                            quantity--
-                                            cartViewModel.updateCartItem(cartItem, quantity)
-                                        }
-                                    }
+                                    onClick = { cartViewModel.decreaseQuantity(cartItem) }
                                 ) {
                                     Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "Remove")
                                 }
@@ -103,10 +98,7 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                                 )
 
                                 IconButton(
-                                    onClick = {
-                                        quantity++
-                                        cartViewModel.updateCartItem(cartItem, quantity)
-                                    }
+                                    onClick = { cartViewModel.increaseQuantity(cartItem) }
                                 ) {
                                     Icon(imageVector = Icons.Default.KeyboardArrowUp, contentDescription = "Add")
                                 }
