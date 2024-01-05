@@ -34,8 +34,13 @@ public class UserController  {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public ResponseEntity<String> createUser(@RequestBody User user){
+        try {
+            User createdUser = userService.addUser(user);
+            return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>("Failed to create user", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")
