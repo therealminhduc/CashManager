@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,13 +49,11 @@ import kotlinx.serialization.json.Json
 @Preview
 @Composable
 fun LoginScreen(navController: NavController) {
-    var isValidUsername by remember {
-        mutableStateOf(false)
-    }
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var isValidUsername by remember { mutableStateOf(false) }
 
-    var isValidPassword by remember {
-        mutableStateOf(false)
-    }
+    var isValidPassword by remember { mutableStateOf(false) }
 
     val apiEndpoints = remember { ApiClient.createApiEndpoints() }
     val coroutineScope = rememberCoroutineScope()
@@ -80,8 +79,10 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier.width(350.dp),
             label = { Text(style = MaterialTheme.typography.labelLarge, text = "Username*") },
             placeholder = { Text(style = MaterialTheme.typography.labelLarge, text = "Enter your username") },
-            value = "",
-            onValueChange = { input -> isValidUsername = input.isNotEmpty() },
+            value = username,
+            onValueChange = { input ->
+                username = input
+                isValidUsername = input.isNotEmpty() },
         )
 
         OutlinedTextField(
@@ -89,9 +90,13 @@ fun LoginScreen(navController: NavController) {
             label = { Text(style = MaterialTheme.typography.labelLarge, text = "Password*") },
             placeholder = { Text(style = MaterialTheme.typography.labelLarge, text = "Enter your password") },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
-            value = "",
+            value = password,
             isError = false,
-            onValueChange = { input -> isValidPassword = input.isNotEmpty() },
+            onValueChange = { input ->
+                password = input
+                isValidPassword = input.isNotEmpty() },
+            visualTransformation = PasswordVisualTransformation()
+
         )
 
         Spacer(modifier = Modifier.height(12.dp))
