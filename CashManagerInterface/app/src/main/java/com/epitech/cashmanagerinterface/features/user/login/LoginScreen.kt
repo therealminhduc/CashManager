@@ -115,6 +115,8 @@ fun LoginScreen(navController: NavController) {
                 )
             }
 
+
+//          TODO: will need to use real variables on next commit
             val user = User("Marie", "password")
             val jsonString = Json.encodeToString(user)
 
@@ -125,9 +127,7 @@ fun LoginScreen(navController: NavController) {
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
                 onClick = {
-                    coroutineScope.launch {
-                        apiEndpoints.login(jsonString)
-                    }
+                    coroutineScope.launch { apiEndpoints.login(jsonString) }
                 }
             ) {
                 Text(text = "Login", style = MaterialTheme.typography.labelLarge, color = lightWhite)
