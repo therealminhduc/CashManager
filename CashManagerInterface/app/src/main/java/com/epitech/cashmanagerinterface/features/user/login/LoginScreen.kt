@@ -1,6 +1,7 @@
 package com.epitech.cashmanagerinterface.features.user.login
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,12 +32,17 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.epitech.cashmanagerinterface.common.conn.ApiClient
+import com.epitech.cashmanagerinterface.common.data.User
 import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
 import com.epitech.cashmanagerinterface.ui.theme.darkBlue
 import com.epitech.cashmanagerinterface.ui.theme.lightBlack
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
+import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
@@ -48,6 +55,9 @@ fun LoginScreen(navController: NavController) {
     var isValidPassword by remember {
         mutableStateOf(false)
     }
+
+    val apiEndpoints = remember { ApiClient.createApiEndpoints() }
+    val coroutineScope = rememberCoroutineScope()
 
 
     Column(
@@ -105,13 +115,20 @@ fun LoginScreen(navController: NavController) {
                 )
             }
 
+            val user = User("Marie", "password")
+            val jsonString = Json.encodeToString(user)
+
             Button(
                 modifier = Modifier
                     .height(35.dp)
                     .width(120.dp),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    coroutineScope.launch {
+                        apiEndpoints.login(jsonString)
+                    }
+                }
             ) {
                 Text(text = "Login", style = MaterialTheme.typography.labelLarge, color = lightWhite)
             }
