@@ -31,4 +31,13 @@ class CartViewModel : ViewModel() {
     fun removeCartItem(cartItem: CartItem) {
         _cartItems.remove(cartItem)
     }
+
+    fun calculateTotalPrice(cartItem: CartItem): String {
+        val totalPrice = cartItem.product.price * cartItem.quantity
+        return String.format("%.2f", totalPrice)
+    }
+
+    fun calculateTotalCartPrice(): Float {
+        return _cartItems.sumOf { calculateTotalPrice(it).toDouble() }.toFloat()
+    }
 }

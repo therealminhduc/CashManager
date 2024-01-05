@@ -18,7 +18,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun NavigationGraph(navController: NavHostController, cartViewModel: CartViewModel, scaffoldState: ScaffoldState) {
-    NavHost(navController , startDestination = NavItem.Login.route) {
+    NavHost(navController , startDestination = NavItem.Scanner.route) {
 
         composable(NavItem.Scanner.route) {
             CameraPermissionScreen(cartViewModel = cartViewModel, scaffoldState = scaffoldState)
@@ -33,7 +33,7 @@ fun NavigationGraph(navController: NavHostController, cartViewModel: CartViewMod
         }
 
         composable(NavItem.Payment.route) {
-            PaymentScreen(navController = navController)
+            PaymentScreen(cartViewModel = cartViewModel, navController = navController)
         }
 
         composable(NavItem.Login.route) {

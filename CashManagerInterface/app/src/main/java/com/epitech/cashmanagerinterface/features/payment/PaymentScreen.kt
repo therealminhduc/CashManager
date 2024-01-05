@@ -19,20 +19,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.epitech.cashmanagerinterface.common.navigation.components.TopAppBar
 import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
-import com.epitech.cashmanagerinterface.ui.theme.lightGray
+import com.epitech.cashmanagerinterface.features.cart.CartViewModel
+import com.epitech.cashmanagerinterface.features.cart.components.TotalCartPrice
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
-import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun PaymentScreen(navController: NavController) {
+fun PaymentScreen(cartViewModel: CartViewModel = viewModel(), navController: NavController) {
     Scaffold(
         topBar = { TopAppBar(screenName = NavItem.Payment.label) { navController.navigate(NavItem.Cart.route)} }
     ) {
@@ -63,6 +63,8 @@ fun PaymentScreen(navController: NavController) {
             ) {
                 Text(text = "Back to Cart", style = MaterialTheme.typography.labelLarge, color = Color.White)
             }
+            
+            TotalCartPrice(cartViewModel = cartViewModel)
         }
     }
 }
