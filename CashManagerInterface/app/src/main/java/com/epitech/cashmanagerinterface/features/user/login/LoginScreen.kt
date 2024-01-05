@@ -121,8 +121,7 @@ fun LoginScreen(navController: NavController) {
             }
 
 
-//          TODO: will need to use real variables on next commit
-            val user = User("Marie", "password")
+            val user = User(username, password)
             val jsonString = Json.encodeToString(user)
 
             Button(
@@ -132,7 +131,14 @@ fun LoginScreen(navController: NavController) {
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
                 onClick = {
-                    coroutineScope.launch { apiEndpoints.login(jsonString) }
+                    coroutineScope.launch {
+                        // Sans ce bloc try catch, l'appli crash si les identifiants sont erronés
+                        try {
+                            apiEndpoints.login(jsonString)
+                        } catch (e: Exception) {
+                            // TODO: Afficher qu'il y a eu un problème de connexion
+                        }
+                    }
                 }
             ) {
                 Text(text = "Login", style = MaterialTheme.typography.labelLarge, color = lightWhite)
