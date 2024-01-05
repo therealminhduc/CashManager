@@ -68,7 +68,7 @@ fun LoginScreen(navController: NavController) {
 
         OutlinedTextField(
             modifier = Modifier.width(350.dp),
-            label = { Text(style = MaterialTheme.typography.labelLarge, text = "Username *") },
+            label = { Text(style = MaterialTheme.typography.labelLarge, text = "Username*") },
             placeholder = { Text(style = MaterialTheme.typography.labelLarge, text = "Enter your username") },
             value = "",
             onValueChange = { input -> isValidUsername = input.isNotEmpty() },
@@ -76,7 +76,7 @@ fun LoginScreen(navController: NavController) {
 
         OutlinedTextField(
             modifier = Modifier.width(350.dp),
-            label = { Text(style = MaterialTheme.typography.labelLarge, text = "Password * ") },
+            label = { Text(style = MaterialTheme.typography.labelLarge, text = "Password*") },
             placeholder = { Text(style = MaterialTheme.typography.labelLarge, text = "Enter your password") },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
             value = "",

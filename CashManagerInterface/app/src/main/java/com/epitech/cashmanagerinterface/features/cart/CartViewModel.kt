@@ -21,7 +21,7 @@ class CartViewModel : ViewModel() {
         }
     }
 
-    fun updateCartItem(cartItem: CartItem, newQuantity: Int) {
+    private fun updateCartItem(cartItem: CartItem, newQuantity: Int) {
         val index = _cartItems.indexOf(cartItem)
         if (index != -1) {
             _cartItems[index] = cartItem.copy(quantity = newQuantity)
