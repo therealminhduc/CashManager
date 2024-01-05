@@ -21,6 +21,10 @@ class CartViewModel : ViewModel() {
         }
     }
 
+    fun getAllProductsInCart(): List<CartItem> {
+        return _cartItems.toList()
+    }
+
     private fun updateCartItem(cartItem: CartItem, newQuantity: Int) {
         val index = _cartItems.indexOf(cartItem)
         if (index != -1) {
