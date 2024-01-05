@@ -2,7 +2,6 @@ package com.epitech.cashmanagerinterface.features.payment
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,9 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material3.Button
 import androidx.compose.material.Text
@@ -27,26 +24,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.epitech.cashmanagerinterface.common.data.CartItem
-import com.epitech.cashmanagerinterface.common.data.Product
 import com.epitech.cashmanagerinterface.common.navigation.components.TopAppBar
 import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
 import com.epitech.cashmanagerinterface.features.cart.CartViewModel
 import com.epitech.cashmanagerinterface.features.cart.components.TotalCartPrice
 import com.epitech.cashmanagerinterface.ui.theme.darkOnPrimary
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
-import com.epitech.cashmanagerinterface.ui.theme.lightCrimson
-import com.epitech.cashmanagerinterface.ui.theme.lightGray
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 
@@ -62,27 +50,29 @@ fun PaymentScreen(cartViewModel: CartViewModel = viewModel(), navController: Nav
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(lightWhite2)
-                .wrapContentSize(Alignment.Center),
+                .background(lightWhite2),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             ElevatedCard(
                 colors = CardDefaults.cardColors(
                     containerColor = lightWhite
                 ),
                 modifier = Modifier
                     .padding(10.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
                 Column {
                     for (cartItem in cartItems) {
                         Row(
-                            modifier = Modifier.padding(10.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(10.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(text = cartItem.product.name)
+                            Text(fontWeight = FontWeight.SemiBold, text = cartItem.product.name)
                             Text(text = "${cartItem.product.price} x${cartItem.quantity}")
                         }
                         Spacer(modifier = Modifier.height(8.dp))

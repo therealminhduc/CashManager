@@ -54,7 +54,8 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                     ),
                     modifier = Modifier
                         .padding(10.dp)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
                 ) {
                     Column(
                         modifier = Modifier
