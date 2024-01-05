@@ -82,7 +82,6 @@ fun RegisterScreen(navController: NavController) {
                     username = input
                     isValidUsername = input.isNotEmpty() },
             )
-            Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
                 modifier = Modifier
@@ -98,7 +97,6 @@ fun RegisterScreen(navController: NavController) {
                 visualTransformation = PasswordVisualTransformation()
 
             )
-            Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
                 modifier = Modifier
