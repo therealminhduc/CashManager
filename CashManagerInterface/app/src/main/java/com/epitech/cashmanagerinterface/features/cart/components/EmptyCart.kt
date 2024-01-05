@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
-import com.epitech.cashmanagerinterface.ui.theme.navGray
 
 @Composable
 fun EmptyCart() {

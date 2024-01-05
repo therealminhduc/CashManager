@@ -23,13 +23,10 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -45,7 +42,7 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
 
     Box(modifier = Modifier
         .fillMaxSize()
-        .padding(bottom = 120.dp)) {
+        .padding(top = 10.dp, bottom = 130.dp)) {
         LazyColumn(modifier = Modifier
             .fillMaxWidth()
             .wrapContentSize(Alignment.Center)
@@ -57,11 +54,9 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                     ),
                     modifier = Modifier
                         .padding(10.dp)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
                 ) {
-
-                    var quantity by remember { mutableIntStateOf(cartItem.quantity) }
-
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -86,12 +81,7 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                                     .background(color = lightWhite2)
                             ) {
                                 IconButton(
-                                    onClick = {
-                                        if (quantity > 1) {
-                                            quantity--
-                                            cartViewModel.updateCartItem(cartItem, quantity)
-                                        }
-                                    }
+                                    onClick = { cartViewModel.decreaseQuantity(cartItem) }
                                 ) {
                                     Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "Remove")
                                 }
@@ -102,10 +92,7 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                                 )
 
                                 IconButton(
-                                    onClick = {
-                                        quantity++
-                                        cartViewModel.updateCartItem(cartItem, quantity)
-                                    }
+                                    onClick = { cartViewModel.increaseQuantity(cartItem) }
                                 ) {
                                     Icon(imageVector = Icons.Default.KeyboardArrowUp, contentDescription = "Add")
                                 }
@@ -137,6 +124,15 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                             ) {
                                 Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete", tint = lightWhite2)
                             }
+                        }
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End,
+                            verticalAlignment = Alignment.Bottom
+                        ) {
+                            val totalPrice = cartViewModel.calculateTotalPrice(cartItem)
+                            Text(fontWeight = FontWeight.SemiBold, text = "${totalPrice}€")
                         }
                     }
                 }
