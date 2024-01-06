@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -32,6 +33,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -71,12 +75,16 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
     val apiEndpoints = remember { ApiClient.createApiEndpoints() }
     val coroutineScope = rememberCoroutineScope()
 
+    var offsetState = remember { mutableStateOf(0) }
+    val focusRequester = remember { FocusRequester() }
+
     val preferenceDataStoreHelper = PreferenceDataStoreHelper(context)
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(lightWhite2),
+            .background(lightWhite2)
+            .offset(y = offsetState.value.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -90,7 +98,10 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            modifier = Modifier.width(350.dp),
+            modifier = Modifier
+                .width(350.dp)
+                .focusRequester(focusRequester)
+                .onFocusChanged { if (it.isFocused) offsetState.value =-80 else offsetState.value =0 },
             label = { Text(style = MaterialTheme.typography.labelLarge, text = "Username*") },
             placeholder = { Text(style = MaterialTheme.typography.labelLarge, text = "Enter your username") },
             value = username,
@@ -100,7 +111,10 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
         )
 
         OutlinedTextField(
-            modifier = Modifier.width(350.dp),
+            modifier = Modifier
+                .width(350.dp)
+                .focusRequester(focusRequester)
+                .onFocusChanged { if (it.isFocused) offsetState.value =-80 else offsetState.value =0 },
             label = { Text(style = MaterialTheme.typography.labelLarge, text = "Password*") },
             placeholder = { Text(style = MaterialTheme.typography.labelLarge, text = "Enter your password") },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
