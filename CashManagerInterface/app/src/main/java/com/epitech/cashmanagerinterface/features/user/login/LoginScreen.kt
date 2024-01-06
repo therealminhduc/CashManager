@@ -1,7 +1,6 @@
 package com.epitech.cashmanagerinterface.features.user.login
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,12 +15,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarDuration
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -138,8 +132,8 @@ fun LoginScreen(navController: NavController, scaffoldState: ScaffoldState) {
             }
 
 
-            val user = User(username, password)
-            val jsonString = Json.encodeToString(user)
+            val loginUserCredentials = User(username, password)
+            val loginUserCredentialsJsonString = Json.encodeToString(loginUserCredentials)
 
             Button(
                 modifier = Modifier
@@ -153,7 +147,7 @@ fun LoginScreen(navController: NavController, scaffoldState: ScaffoldState) {
                             isLoading = true
                             // Sans ce bloc try catch, l'appli crash si les identifiants sont erronés
                             try {
-                                val response = apiEndpoints.login(jsonString)
+                                val response = apiEndpoints.login(loginUserCredentialsJsonString)
                                 val responseBody = response.readText()
 
                                 scaffoldState.snackbarHostState.showSnackbar(responseBody, null, SnackbarDuration.Short)
