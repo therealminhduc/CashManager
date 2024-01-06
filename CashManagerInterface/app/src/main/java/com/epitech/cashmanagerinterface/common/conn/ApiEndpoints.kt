@@ -31,6 +31,23 @@ class ApiEndpoints(private val client: HttpClient) {
             throw e
         }
     }
+    suspend fun register(user: String): HttpResponse {
+        return try {
+            val RegisterUser: HttpResponse = client.post("${ApiClient.BASE_URL}/users") {
+                contentType(ContentType.Application.Json)
+                var jsonObj = Json.parseToJsonElement(user)
+                body = jsonObj
+            }
+
+            val responseBody = RegisterUser.readText()
+            Log.d("TAG", "Login response: $responseBody")
+
+            RegisterUser
+        } catch (e: Exception) {
+            Log.e("TAG", "Error during login: $e")
+            throw e
+        }
+    }
 
     suspend fun getProductByCode(code: String): Product? {
         return try {
