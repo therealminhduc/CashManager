@@ -18,7 +18,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -119,7 +118,6 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
             OutlinedTextField(
                 modifier = Modifier
                     .width(350.dp)
-                    .padding(bottom = 8.dp)
                     .focusRequester(focusRequester)
                     .onFocusChanged { if (it.isFocused) offsetState.value =-80 else offsetState.value =0 },
                 label = { Text("Username *") },
@@ -173,59 +171,37 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
                         coroutineScope.launch {
                             try {
                                 apiEndpoints.register(jsonString)
-                                scope.launch {
+                                scaffoldScope.launch {
                                     val result = snackbarHostState
                                         .showSnackbar(
                                             message = "Succefuly Registered",
-                                            actionLabel = "Hide",
+                                            actionLabel = "OK",
                                             duration = SnackbarDuration.Short
                                         )
                                     when (result) {
-                                        SnackbarResult.ActionPerformed -> {
-                                            /* Handle snackbar action performed */
-                                        }
-                                        SnackbarResult.Dismissed -> {
-                                            /* Handle snackbar dismissed */
-                                            navController.navigate(NavItem.Login.route)
-                                        }
+                                        SnackbarResult.ActionPerformed -> { /* Handle snackbar action performed */ }
+                                        SnackbarResult.Dismissed -> { navController.navigate(NavItem.Login.route) }
                                     }
                                 }
                             } catch (e: Exception) {
-                                // TODO: Afficher qu'il y a eu un problème de connexion
-                                scope.launch {
-                                    val result = snackbarHostState
+                                scaffoldScope.launch {
+                                    snackbarHostState
                                         .showSnackbar(
                                             message = "Username already taken",
-                                            actionLabel = "Hide",
+                                            actionLabel = "OK",
                                             duration = SnackbarDuration.Short
-                                        )
-                                    when (result) {
-                                        SnackbarResult.ActionPerformed -> {
-                                            /* Handle snackbar action performed */
-                                        }
-                                        SnackbarResult.Dismissed -> {
-                                            /* Handle snackbar dismissed */
-                                        }
-                                    }
+                                    )
                                 }
                             }
                         }
-                    }else{
+                    } else{
                         scaffoldScope.launch {
-                            val result = snackbarHostState
+                            snackbarHostState
                                 .showSnackbar(
-                                    message = "Incorrect Username or password",
-                                    actionLabel = "Hide",
+                                    message = "Verify your information",
+                                    actionLabel = "OK",
                                     duration = SnackbarDuration.Short
-                                )
-                            when (result) {
-                                SnackbarResult.ActionPerformed -> {
-                                    /* Handle snackbar action performed */
-                                }
-                                SnackbarResult.Dismissed -> {
-                                    /* Handle snackbar dismissed */
-                                }
-                            }
+                            )
                         }
                     }
                     softwareKeyboardController?.hide()
