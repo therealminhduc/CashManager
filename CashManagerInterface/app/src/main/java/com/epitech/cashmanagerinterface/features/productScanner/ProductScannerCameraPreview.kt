@@ -37,6 +37,7 @@ import com.epitech.cashmanagerinterface.features.cart.CartViewModel
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
 import com.epitech.cashmanagerinterface.features.productScanner.components.ProductInfoBottomSheet
 import com.epitech.cashmanagerinterface.features.productScanner.components.ProductNotFoundBottomSheet
+import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.coroutineScope
 import java.util.concurrent.ExecutorService
@@ -176,6 +177,7 @@ fun ProductScannerCameraPreview(cartViewModel: CartViewModel, scaffoldState: Sca
             modifier = Modifier
                 .height(250.dp)
                 .fillMaxSize(),
+            containerColor = lightWhite,
             onDismissRequest = {
                 isSheetOpen = false
                 currentBarCodeValue = ""
