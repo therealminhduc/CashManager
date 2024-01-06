@@ -29,8 +29,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -47,6 +49,7 @@ import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
@@ -56,6 +59,7 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
 
     val scaffoldScope = rememberCoroutineScope()
     var isLoading by remember { mutableStateOf(false) }
+    val softwareKeyboardController = LocalSoftwareKeyboardController.current
 
     var isValidUsername by remember { mutableStateOf(false) }
     var isValidPassword by remember { mutableStateOf(false) }
@@ -128,6 +132,7 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
                             scaffoldState.snackbarHostState.showSnackbar("Please fill in all fields", null, SnackbarDuration.Short)
                         }
                     }
+                    softwareKeyboardController?.hide()
                 }
             ) {
                 if (isLoading) {
