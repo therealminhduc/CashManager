@@ -14,7 +14,7 @@ import kotlinx.serialization.json.Json
 
 class ApiEndpoints(private val client: HttpClient) {
 
-    suspend fun login(user: String): HttpResponse {
+    suspend fun login(user: String): String {
         return try {
             val loginUser: HttpResponse = client.post("${ApiClient.BASE_URL}/auth/login") {
                 contentType(ContentType.Application.Json)
@@ -25,7 +25,7 @@ class ApiEndpoints(private val client: HttpClient) {
             val responseBody = loginUser.readText()
             Log.d("TAG", "Login response: $responseBody")
 
-            loginUser
+            responseBody
         } catch (e: Exception) {
             Log.e("TAG", "Error during login: $e")
             throw e
