@@ -1,6 +1,5 @@
 package com.epitech.cashmanagerinterface.features.productScanner.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,7 +11,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,8 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import com.epitech.cashmanagerinterface.ui.theme.lightGreen
 import com.epitech.cashmanagerinterface.ui.theme.lightCrimson
-import com.epitech.cashmanagerinterface.ui.theme.lightWhite
-import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -44,7 +40,6 @@ fun QuantityAlertDialog(
     }
 
     AlertDialog(
-        containerColor = lightWhite,
         onDismissRequest = { onDismissRequest() },
         title = { Text(text = dialogTitle, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold) },
         confirmButton = {

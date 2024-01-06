@@ -10,22 +10,12 @@ class CartViewModel : ViewModel() {
     val cartItems: MutableList<CartItem> get() = _cartItems
 
     fun addToCart(product: Product, quantity: Int) {
-        val existingItem = _cartItems.find { it.product == product }
-
-        if (existingItem != null) {
-            existingItem.quantity += quantity
-        } else {
-            val cartItem = CartItem(product, quantity)
-            _cartItems.add(cartItem)
-            println("Product: ${cartItem.product.name}, Quantity: ${cartItem.quantity}")
-        }
+        val cartItem = CartItem(product, quantity)
+        _cartItems.add(cartItem)
+        println("Product: ${cartItem.product.name}, Quantity: ${cartItem.quantity}")
     }
 
-    fun getAllProductsInCart(): List<CartItem> {
-        return _cartItems.toList()
-    }
-
-    private fun updateCartItem(cartItem: CartItem, newQuantity: Int) {
+    fun updateCartItem(cartItem: CartItem, newQuantity: Int) {
         val index = _cartItems.indexOf(cartItem)
         if (index != -1) {
             _cartItems[index] = cartItem.copy(quantity = newQuantity)
@@ -34,26 +24,5 @@ class CartViewModel : ViewModel() {
 
     fun removeCartItem(cartItem: CartItem) {
         _cartItems.remove(cartItem)
-    }
-
-    fun decreaseQuantity(cartItem: CartItem) {
-        if (cartItem.quantity > 1) {
-            val newQuantity = cartItem.quantity - 1
-            updateCartItem(cartItem, newQuantity)
-        }
-    }
-
-    fun increaseQuantity(cartItem: CartItem) {
-        val newQuantity = cartItem.quantity + 1
-        updateCartItem(cartItem, newQuantity)
-    }
-
-    fun calculateTotalPrice(cartItem: CartItem): String {
-        val totalPrice = cartItem.product.price * cartItem.quantity
-        return String.format("%.2f", totalPrice)
-    }
-
-    fun calculateTotalCartPrice(): Float {
-        return _cartItems.sumOf { calculateTotalPrice(it).toDouble() }.toFloat()
     }
 }

@@ -26,6 +26,7 @@ public class HttpRequests {
             .build();
 
         HttpClient httpClient = HttpClient.newHttpClient();
-        return httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        return response;
     }
 }

@@ -17,9 +17,9 @@ val lightGreen = Color(0xFF2AAA8A) // used for positive buttons
 val lightBlue = Color(0xFF0071E3) //used for important buttons
 
 val darkBackground = Color(0xFF2C2C2C)
-val darkBlackGray = Color(0xFF1E1E1E)
+val darkOnBackground = Color(0xFF1E1E1E)
 val darkPrimary = Color(0xFF121212)
 val darkOnPrimary = Color(0xFFE0E0E0)
 val darkSecondary = Color(0xFFDC143C)
 val darkOnSecondary = Color(0xFF4CAF50)
-val darkBlue = Color(0xFF2196F3)
+val darkSurface = Color(0xFF2196F3)
