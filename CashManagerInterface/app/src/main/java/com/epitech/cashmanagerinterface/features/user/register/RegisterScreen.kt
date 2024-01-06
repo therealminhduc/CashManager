@@ -78,9 +78,7 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
             )
 
             OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
+                modifier = Modifier.width(350.dp),
                 label = { Text("Username *") },
                 placeholder = { Text("Enter your username") },
                 value = username,
@@ -90,9 +88,7 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
             )
 
             OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
+                modifier = Modifier.width(350.dp),
                 label = { Text("Password *") },
                 placeholder = { Text("Enter your password") },
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
@@ -105,9 +101,7 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
             )
 
             OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
+                modifier = Modifier.width(350.dp),
                 label = { Text("Confirm Password *") },
                 placeholder = { Text("Confirm your password") },
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
@@ -115,10 +109,10 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
                 onValueChange = { input -> confirmPassword = input },
                 visualTransformation = PasswordVisualTransformation()
             )
+
+            Spacer(modifier = Modifier.height(5.dp))
             Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
+                modifier = Modifier.width(350.dp),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
                 onClick = {
