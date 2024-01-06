@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarDuration
@@ -41,6 +43,7 @@ import com.epitech.cashmanagerinterface.common.navigation.components.TopAppBar
 import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
 import com.epitech.cashmanagerinterface.ui.theme.lightGray
+import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 import kotlinx.coroutines.launch
 
@@ -52,6 +55,7 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
     var confirmPassword by remember { mutableStateOf("") }
 
     val scaffoldScope = rememberCoroutineScope()
+    var isLoading by remember { mutableStateOf(false) }
 
     var isValidUsername by remember { mutableStateOf(false) }
     var isValidPassword by remember { mutableStateOf(false) }
@@ -117,6 +121,7 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
                 colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
                 onClick = {
                     if (isValidUsername && isValidPassword && password == confirmPassword) {
+                        isLoading = true
                         /*TODO*/
                     } else {
                         scaffoldScope.launch {
@@ -125,12 +130,16 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
                     }
                 }
             ) {
-                Text(
-                    text = "Register",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = Color.White
-                )
-            }
+                if (isLoading) {
+                    CircularProgressIndicator(modifier = Modifier.size(20.dp), color = lightWhite)
+                } else {
+                    Text(
+                        text = "Register",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Color.White
+                    )
+                }
             }
         }
+    }
 }

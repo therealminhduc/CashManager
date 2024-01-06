@@ -1,6 +1,7 @@
 package com.epitech.cashmanagerinterface.features.user.login
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,9 +10,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Snackbar
@@ -47,6 +50,7 @@ import com.epitech.cashmanagerinterface.ui.theme.lightBlack
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
+import io.ktor.client.statement.readText
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -62,6 +66,7 @@ fun LoginScreen(navController: NavController, scaffoldState: ScaffoldState) {
     var isValidPassword by remember { mutableStateOf(false) }
 
     val scaffoldScope = rememberCoroutineScope()
+    var isLoading by remember { mutableStateOf(false) }
 
     val apiEndpoints = remember { ApiClient.createApiEndpoints() }
     val coroutineScope = rememberCoroutineScope()
@@ -141,11 +146,17 @@ fun LoginScreen(navController: NavController, scaffoldState: ScaffoldState) {
                 onClick = {
                     if (username.isNotEmpty() && password.isNotEmpty()) {
                         coroutineScope.launch {
+                            isLoading = true
                             // Sans ce bloc try catch, l'appli crash si les identifiants sont erronés
                             try {
-                                apiEndpoints.login(jsonString)
+                                val response = apiEndpoints.login(jsonString)
+                                val responseBody = response.readText()
+
+                                scaffoldState.snackbarHostState.showSnackbar(responseBody, null, SnackbarDuration.Short)
                             } catch (e: Exception) {
-                                // TODO: Afficher qu'il y a eu un problème de connexion
+                                scaffoldState.snackbarHostState.showSnackbar("Invalid credentials", null, SnackbarDuration.Short)
+                            } finally {
+                                isLoading = false
                             }
                         }
                     } else {
@@ -155,7 +166,11 @@ fun LoginScreen(navController: NavController, scaffoldState: ScaffoldState) {
                     }
                 }
             ) {
-                Text(text = "Login", style = MaterialTheme.typography.labelLarge, color = lightWhite)
+                if (isLoading) {
+                    CircularProgressIndicator(modifier = Modifier.size(20.dp), color = lightWhite)
+                } else {
+                    Text(text = "Login", style = MaterialTheme.typography.labelLarge, color = lightWhite)
+                }
             }
         }
     }
