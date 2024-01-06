@@ -37,11 +37,11 @@ fun NavigationGraph(navController: NavHostController, cartViewModel: CartViewMod
         }
 
         composable(NavItem.Login.route) {
-            LoginScreen(navController = navController)
+            LoginScreen(navController = navController, scaffoldState = scaffoldState)
         }
 
         composable(NavItem.Register.route) {
-            RegisterScreen(navController = navController)
+            RegisterScreen(navController = navController, scaffoldState = scaffoldState)
         }
     }
 }

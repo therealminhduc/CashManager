@@ -1,7 +1,6 @@
 package com.epitech.cashmanagerinterface.features.user.login
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,11 +8,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarDuration
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -48,12 +54,14 @@ import kotlinx.serialization.json.Json
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, scaffoldState: ScaffoldState) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var isValidUsername by remember { mutableStateOf(false) }
 
+    var isValidUsername by remember { mutableStateOf(false) }
     var isValidPassword by remember { mutableStateOf(false) }
+
+    val scaffoldScope = rememberCoroutineScope()
 
     val apiEndpoints = remember { ApiClient.createApiEndpoints() }
     val coroutineScope = rememberCoroutineScope()
@@ -131,12 +139,18 @@ fun LoginScreen(navController: NavController) {
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
                 onClick = {
-                    coroutineScope.launch {
-                        // Sans ce bloc try catch, l'appli crash si les identifiants sont erronés
-                        try {
-                            apiEndpoints.login(jsonString)
-                        } catch (e: Exception) {
-                            // TODO: Afficher qu'il y a eu un problème de connexion
+                    if (username.isNotEmpty() && password.isNotEmpty()) {
+                        coroutineScope.launch {
+                            // Sans ce bloc try catch, l'appli crash si les identifiants sont erronés
+                            try {
+                                apiEndpoints.login(jsonString)
+                            } catch (e: Exception) {
+                                // TODO: Afficher qu'il y a eu un problème de connexion
+                            }
+                        }
+                    } else {
+                        scaffoldScope.launch {
+                            scaffoldState.snackbarHostState.showSnackbar("Please fill in all fields", null, SnackbarDuration.Short)
                         }
                     }
                 }

@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -22,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,14 +42,18 @@ import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
 import com.epitech.cashmanagerinterface.ui.theme.lightGray
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
+import kotlinx.coroutines.launch
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun RegisterScreen(navController: NavController) {
+fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-    var isValidUsername by remember { mutableStateOf(false) }
 
+    val scaffoldScope = rememberCoroutineScope()
+
+    var isValidUsername by remember { mutableStateOf(false) }
     var isValidPassword by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -118,7 +125,9 @@ fun RegisterScreen(navController: NavController) {
                     if (isValidUsername && isValidPassword && password == confirmPassword) {
                         /*TODO*/
                     } else {
-                        /*TODO*/
+                        scaffoldScope.launch {
+                            scaffoldState.snackbarHostState.showSnackbar("Please fill in all fields", null, SnackbarDuration.Short)
+                        }
                     }
                 }
             ) {
