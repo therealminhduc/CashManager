@@ -42,4 +42,22 @@ class ApiEndpoints(private val client: HttpClient) {
             null
         }
     }
+
+    suspend fun validateBasket(cardInfos: String): String {
+        return try {
+            val validBasket: HttpResponse = client.post("${ApiClient.BASE_URL}/users/6598494e33ec974bc5ef3eac/basket/validate") {
+                contentType(ContentType.Application.Json)
+                var jsonObj = Json.parseToJsonElement(cardInfos)
+                body = jsonObj
+            }
+
+            val responseBody = validBasket.readText()
+            Log.d("TAG", "Login response: $responseBody")
+
+            responseBody
+        } catch (e: Exception) {
+            Log.e("TAG", "Error during login: $e")
+            throw e
+        }
+    }
 }

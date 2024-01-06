@@ -154,6 +154,7 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
                                 // Save userID in the datastore
                                 preferenceDataStoreHelper.putPreference(PreferenceDataStoreConstants.USERID_KEY, userId)
 
+                                // TODO à enlever une fois la fonctionnalité est stable
                                 scaffoldState.snackbarHostState.showSnackbar(userId, null, SnackbarDuration.Short)
                             } catch (e: Exception) {
                                 scaffoldState.snackbarHostState.showSnackbar("Invalid credentials", null, SnackbarDuration.Short)
