@@ -53,15 +53,13 @@ import com.epitech.cashmanagerinterface.ui.theme.lightBlack
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
+import io.ktor.client.statement.readText
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import android.os.Handler;
-import android.os.Looper;
-import androidx.compose.runtime.LaunchedEffect
 
 @OptIn(ExperimentalComposeUiApi::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LoginScreen(navController: NavController, context: Context, scaffoldState: ScaffoldState) {
     var username by remember { mutableStateOf("") }
@@ -81,14 +79,6 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
     val focusRequester = remember { FocusRequester() }
 
     val preferenceDataStoreHelper = PreferenceDataStoreHelper(context)
-
-    val handler = Handler(Looper.getMainLooper())
-
-    var loggedInUserId by remember { mutableStateOf("") }
-    LaunchedEffect(Unit) {
-        loggedInUserId = preferenceDataStoreHelper.getPreference(PreferenceDataStoreConstants.USERID_KEY, "null")
-        if (loggedInUserId != "null") { navController.navigate(NavItem.Scanner.route) }
-    }
 
     Column(
         modifier = Modifier
@@ -111,9 +101,7 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
             modifier = Modifier
                 .width(350.dp)
                 .focusRequester(focusRequester)
-                .onFocusChanged {
-                    if (it.isFocused) offsetState.value = -80 else offsetState.value = 0
-                },
+                .onFocusChanged { if (it.isFocused) offsetState.value =-80 else offsetState.value =0 },
             label = { Text(style = MaterialTheme.typography.labelLarge, text = "Username*") },
             placeholder = { Text(style = MaterialTheme.typography.labelLarge, text = "Enter your username") },
             value = username,
@@ -126,9 +114,7 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
             modifier = Modifier
                 .width(350.dp)
                 .focusRequester(focusRequester)
-                .onFocusChanged {
-                    if (it.isFocused) offsetState.value = -80 else offsetState.value = 0
-                },
+                .onFocusChanged { if (it.isFocused) offsetState.value =-80 else offsetState.value =0 },
             label = { Text(style = MaterialTheme.typography.labelLarge, text = "Password*") },
             placeholder = { Text(style = MaterialTheme.typography.labelLarge, text = "Enter your password") },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
@@ -182,9 +168,8 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
                                 // Save userID in the datastore
                                 preferenceDataStoreHelper.putPreference(PreferenceDataStoreConstants.USERID_KEY, userId)
 
-                                handler.postDelayed({
-                                    navController.navigate(NavItem.Scanner.route)
-                                }, 1000)
+                                // TODO à enlever une fois la fonctionnalité est stable
+                                scaffoldState.snackbarHostState.showSnackbar(userId, null, SnackbarDuration.Short)
                             } catch (e: Exception) {
                                 scaffoldState.snackbarHostState.showSnackbar("Invalid credentials", null, SnackbarDuration.Short)
                             } finally {

@@ -1,32 +1,9 @@
-# Cash manager interface
+The common folder houses shared code, such as constants, data models, and resources, which ensures that these elements are accessible across the app without being tightly coupled to specific features. This decoupling facilitates code maintainability and reduces redundancy.
 
-6 screens:
-- Login
-- Register
-- Scanner
-- Cart
-- Profile
-- Payment
+The features folder encapsulates the app's core functionalities: product scanner, user profile, cart, and payment. This organization allows you to group related components and logic together, making the code more focused and easier to navigate.
 
-This is where user can interact with products that are available on the server.
+The components folder serves as a repository for reusable components, such as buttons, labels, and lists. This centralization promotes code reuse and consistency across the app's UI elements.
 
-User can create an account with unique username and password
+The navigation folder manages the app's navigation flow, including transitions between screens and error handling. This separation of navigation logic from the UI components enhances code organization and maintainability.
 
-They can also scan a product, choose quantity, add to cart and purchase.
-
-[//]: # (![img.png]&#40;documentation/assets/loginScreen.png&#41;)
-
-[//]: # (![img.png]&#40;documentation/assets/registerScreen.png&#41;)
-
-[//]: # (![img.png]&#40;documentation/assets/scannerScreen.png&#41;)
-
-[//]: # (![img.png]&#40;documentation/assets/scannerScreen2.png&#41;)
-
-[//]: # (![img.png]&#40;documentation/assets/cartScreen1.png&#41;)
-
-[//]: # (![img.png]&#40;documentation/assets/cartScreen2.png&#41;)
-
-[//]: # (![img.png]&#40;documentation/assets/paymentScreen.png&#41;)
-
-
-<img src="documentation/assets/loginScreen.png" width="23%"></img> <img src="documentation/assets/registerScreen.png" width="23%"></img> <img src="documentation/assets/scannerScreen.png" width="23%"></img> <img src="documentation/assets/scannerScreen2.png" width="23%"></img> <img src="documentation/assets/cartScreen1.png" width="23%"></img> <img src="documentation/assets/cartScreen2.png" width="23%"></img> <img src="documentation/assets/paymentScreen.png" width="23%"></img>
+In summary, the provided folder structure aligns with the MVVM architecture principles by promoting modularity, reusability, and decoupling of concerns. This approach can lead to a more maintainable, testable, and scalable codebase for your cash manager app.

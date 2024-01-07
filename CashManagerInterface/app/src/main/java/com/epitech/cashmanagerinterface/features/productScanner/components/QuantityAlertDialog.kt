@@ -55,7 +55,7 @@ fun QuantityAlertDialog(
                 onClick = {
                     onConfirmation(productQuantity.toInt())
                     scaffoldScope.launch {
-                        //scaffoldState.snackbarHostState.showSnackbar("This product is added to cart", null, SnackbarDuration.Short)
+                        scaffoldState.snackbarHostState.showSnackbar("This product is added to cart", null, SnackbarDuration.Short)
                     }
                 }
             ) {

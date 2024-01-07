@@ -83,15 +83,13 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel(), userId: String) 
                                 text = cartItem.product.name,
                                 textAlign = TextAlign.Start,
                             )
-
+// Commenté car chaque doublon apparait indépendament dans la page panier pour le moment
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(5.dp),
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(10.dp))
                             ) {
-
-//                                icon buttons is commented since the backend does not support this functionality
 //                                IconButton(
 //                                    onClick = { cartViewModel.decreaseQuantity(cartItem) }
 //                                ) {

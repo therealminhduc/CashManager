@@ -179,7 +179,7 @@ fun RegisterScreen(navController: NavController, scaffoldState: ScaffoldState) {
                                             duration = SnackbarDuration.Short
                                         )
                                     when (result) {
-                                        SnackbarResult.ActionPerformed -> { navController.navigate(NavItem.Login.route) }
+                                        SnackbarResult.ActionPerformed -> { /* Handle snackbar action performed */ }
                                         SnackbarResult.Dismissed -> { navController.navigate(NavItem.Login.route) }
                                     }
                                 }

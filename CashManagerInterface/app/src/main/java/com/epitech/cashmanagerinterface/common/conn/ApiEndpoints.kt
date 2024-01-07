@@ -2,8 +2,9 @@ package com.epitech.cashmanagerinterface.common.conn
 
 import android.util.Log
 import com.epitech.cashmanagerinterface.common.data.Product
+import com.epitech.cashmanagerinterface.common.data.ProductCodeRequest
+import com.epitech.cashmanagerinterface.common.data.User
 import com.epitech.cashmanagerinterface.common.data.reponses.BasketResponse
-import com.epitech.cashmanagerinterface.common.data.reponses.UserResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.receive
 import io.ktor.client.request.delete
@@ -14,7 +15,9 @@ import io.ktor.client.statement.readText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.encodeToJsonElement
 
 class ApiEndpoints(private val client: HttpClient) {
 
@@ -60,17 +63,6 @@ class ApiEndpoints(private val client: HttpClient) {
             product
         } catch (e: Exception) {
             Log.e("TAG", "Error fetching product: $e")
-            null
-        }
-    }
-
-    suspend fun getUserById(userid: String): UserResponse? {
-        return try {
-            val user = client.get<UserResponse>("${ApiClient.BASE_URL}/users/$userid")
-            Log.d("TAG", "User: $user")
-            user
-        } catch (e: Exception) {
-            Log.e("TAG", "Error fetching user: $e")
             null
         }
     }
@@ -123,20 +115,6 @@ class ApiEndpoints(private val client: HttpClient) {
         } catch (e: Exception) {
             Log.e("Delete All products with code", "Error deleting products: $e")
             throw e
-        }
-    }
-
-    suspend fun addProductToBasket(userId: String, productRequest: String): Product? {
-        return try {
-            val response: HttpResponse = client.post("${ApiClient.BASE_URL}/users/$userId/basket/product") {
-                contentType(ContentType.Application.Json)
-                var jsonObj = Json.parseToJsonElement(productRequest)
-                body = jsonObj
-            }
-            Product("23", "placeholder", 23f, "213123", "utlll", "coooool")
-        } catch (e: Exception) {
-            Log.e("Add product to basket", "Error adding the product $productRequest to the basket: $e")
-            return null
         }
     }
 }

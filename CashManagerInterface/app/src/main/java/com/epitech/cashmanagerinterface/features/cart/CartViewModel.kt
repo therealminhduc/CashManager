@@ -23,6 +23,7 @@ class CartViewModel : ViewModel() {
         } else {
             val cartItem = CartItem(product, quantity)
             _cartItems.add(cartItem)
+            println("Product: ${cartItem.product.name}, Quantity: ${cartItem.quantity}")
         }
     }
 
