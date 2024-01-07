@@ -117,4 +117,18 @@ class ApiEndpoints(private val client: HttpClient) {
             throw e
         }
     }
+
+    suspend fun addProductToBasket(userId: String, productRequest: String): Product? {
+        return try {
+            val response: HttpResponse = client.post("${ApiClient.BASE_URL}/users/$userId/basket/product") {
+                contentType(ContentType.Application.Json)
+                var jsonObj = Json.parseToJsonElement(productRequest)
+                body = jsonObj
+            }
+            Product("23", "placeholder", 23f, "213123", "utlll", "coooool")
+        } catch (e: Exception) {
+            Log.e("Add product to basket", "Error adding the product $productRequest to the basket: $e")
+            return null
+        }
+    }
 }

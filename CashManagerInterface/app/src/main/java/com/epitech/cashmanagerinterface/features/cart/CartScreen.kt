@@ -45,12 +45,16 @@ fun CartScreen(cartViewModel: CartViewModel = viewModel(), navController: NavCon
         userId = preferenceDataStoreHelper.getPreference(PreferenceDataStoreConstants.USERID_KEY, "null")
 
         if (userId != "null") {
-            val productList = apiEndpoints.getUsersBasket(userId)
-            cartItems = mutableListOf<CartItem>()
-            for (product in productList) {
-                cartItems.add(CartItem(product, 1))
+            try {
+                val productList = apiEndpoints.getUsersBasket(userId)
+                cartItems = mutableListOf<CartItem>()
+                for (product in productList) {
+                    cartItems.add(CartItem(product, 1))
+                }
+                cartViewModel.setCart(cartItems)
+            } catch (e: Exception) {
+
             }
-            cartViewModel.setCart(cartItems)
         }
     }
 
