@@ -182,7 +182,7 @@ fun PaymentScreen(cartViewModel: CartViewModel = viewModel(), navController: Nav
                             isLoading = true
                             try {
                                 val validBasket = apiEndpoints.validateBasket(userId, cardInfoJsonString)
-                                scaffoldState.snackbarHostState.showSnackbar(validBasket, null, SnackbarDuration.Short)
+                                scaffoldState.snackbarHostState.showSnackbar("You have completed you payment ", null, SnackbarDuration.Short)
                                 navController.navigate(NavItem.Cart.route)
 
                             } catch (e: Exception) {
