@@ -25,6 +25,7 @@ import com.epitech.cashmanagerinterface.ui.theme.navGray
 import com.epitech.cashmanagerinterface.common.data.local.PreferenceDataStoreConstants
 import com.epitech.cashmanagerinterface.common.data.local.PreferenceDataStoreHelper
 import androidx.compose.runtime.rememberCoroutineScope
+import com.epitech.cashmanagerinterface.common.conn.ApiClient
 import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
 import kotlinx.coroutines.launch
 
@@ -46,7 +47,7 @@ fun ProfileScreen(navController: NavController, context: Context) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            ProfileInfoSection()
+            ProfileInfoSection(context)
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -69,9 +70,23 @@ fun ProfileScreen(navController: NavController, context: Context) {
 }
 
 @Composable
-fun ProfileInfoSection() {
-    var userName by remember { mutableStateOf("User") }
-    var password by remember { mutableStateOf("Password") }
+fun ProfileInfoSection(context: Context) {
+    var userName by remember { mutableStateOf("") }
+    var userId by remember { mutableStateOf("null") }
+
+    val preferenceDataStoreHelper = PreferenceDataStoreHelper(context)
+
+    val apiEndpoints = remember { ApiClient.createApiEndpoints() }
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(userId) {
+        userId = preferenceDataStoreHelper.getPreference(PreferenceDataStoreConstants.USERID_KEY, "null")
+
+        coroutineScope.launch {
+            val user = apiEndpoints.getUserById(userId)
+            userName = user?.username ?: ""
+        }
+    }
 
     ElevatedCard(
         colors = CardDefaults.cardColors(
@@ -87,10 +102,6 @@ fun ProfileInfoSection() {
         ) {
             Text(
                 text = "Username: $userName",
-                style = MaterialTheme.typography.labelLarge,
-            )
-            Text(
-                text = "Password: $password",
                 style = MaterialTheme.typography.labelLarge,
             )
         }
