@@ -21,11 +21,11 @@ fun NavigationGraph(navController: NavHostController, cartViewModel: CartViewMod
     NavHost(navController , startDestination = NavItem.Login.route) {
 
         composable(NavItem.Scanner.route) {
-            CameraPermissionScreen(cartViewModel = cartViewModel, scaffoldState = scaffoldState)
+            CameraPermissionScreen(cartViewModel = cartViewModel, scaffoldState = scaffoldState, context = navController.context)
         }
 
         composable(NavItem.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(navController = navController, context = navController.context)
         }
 
         composable(NavItem.Cart.route) {

@@ -14,6 +14,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material.SnackbarDuration
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -31,7 +32,9 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.epitech.cashmanagerinterface.common.conn.ApiClient
+import com.epitech.cashmanagerinterface.common.data.AddProductRequest
 import com.epitech.cashmanagerinterface.common.data.Product
 import com.epitech.cashmanagerinterface.features.cart.CartViewModel
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
@@ -40,6 +43,9 @@ import com.epitech.cashmanagerinterface.features.productScanner.components.Produ
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -78,7 +84,7 @@ import java.util.concurrent.Executors
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductScannerCameraPreview(cartViewModel: CartViewModel, scaffoldState: ScaffoldState) {
+fun ProductScannerCameraPreview(cartViewModel: CartViewModel = viewModel(), scaffoldState: ScaffoldState, userId: String) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -109,7 +115,12 @@ fun ProductScannerCameraPreview(cartViewModel: CartViewModel, scaffoldState: Sca
             return@AndroidView previewView
         },
         modifier = Modifier
-            .animateContentSize(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow))
+            .animateContentSize(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = Spring.StiffnessLow
+                )
+            )
             .fillMaxSize(),
         update = { previewView ->
             val cameraSelector: CameraSelector = CameraSelector.Builder()
@@ -162,7 +173,7 @@ fun ProductScannerCameraPreview(cartViewModel: CartViewModel, scaffoldState: Sca
             currentBarCodeValue = newBarCodeValue
             isSheetOpen = true
 
-        product = coroutineScope { apiEndpoints.getProductByCode(newBarCodeValue) }
+            product = coroutineScope { apiEndpoints.getProductByCode(newBarCodeValue) }
 
         } else if (newBarCodeValue.isEmpty() && isSheetOpen) {
             isSheetOpen = false
@@ -194,8 +205,23 @@ fun ProductScannerCameraPreview(cartViewModel: CartViewModel, scaffoldState: Sca
                     onDismissRequest = { isDialogVisible = false },
                     onConfirmationRequest = {
                         quantity -> cartViewModel.addToCart(product!!, quantity)
+
                         isDialogVisible = false
                         isSheetOpen = false
+
+                        scaffoldScope.launch {
+                            val addProductRequest = AddProductRequest(currentBarCodeValue, quantity)
+                            val addProductRequestToJsonString = Json.encodeToString(addProductRequest)
+                            val addedProduct = apiEndpoints.addProductToBasket(userId, addProductRequestToJsonString)
+
+                            if (addedProduct != null) {
+                                // Success
+                                scaffoldState.snackbarHostState.showSnackbar("This product is added to cart", null, SnackbarDuration.Short)
+                            } else {
+                                // Error
+                                scaffoldState.snackbarHostState.showSnackbar("Couldn't add this product to cart", null, SnackbarDuration.Short)
+                            }
+                        }
                     },
                     dialogTitle = "Enter quantity",
                     scaffoldState = scaffoldState,
