@@ -10,3 +10,4 @@ Collections:
 - transactions
 
 We try to simulate the activities of a bank where you can create a bank account, a credit card and stock all transactions history.
+

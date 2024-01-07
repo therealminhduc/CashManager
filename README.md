@@ -18,12 +18,17 @@ Finally, we need an interface where users can interact with it.
 - Interface: Kotlin Jetpack Compose
 
 
+
+
 Credits: 
 - Vu Minh Duc BUI
 - Charles LAMARQUE
 - Chun LAM
 - Florian AUTOUR
 - Alexandre ANDRIEUX
+
+
+![IMG_5A905468E256-1.jpeg](documentation/assets/IMG_5A905468E256-1.jpeg)
 
 This is an Epitech's project.
 
