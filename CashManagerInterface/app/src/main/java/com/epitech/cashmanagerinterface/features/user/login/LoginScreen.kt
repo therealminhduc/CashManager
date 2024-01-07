@@ -57,6 +57,8 @@ import io.ktor.client.statement.readText
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import android.os.Handler;
+import android.os.Looper;
 
 @OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -79,6 +81,8 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
     val focusRequester = remember { FocusRequester() }
 
     val preferenceDataStoreHelper = PreferenceDataStoreHelper(context)
+
+    val handler = Handler(Looper.getMainLooper())
 
     Column(
         modifier = Modifier
@@ -170,6 +174,9 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
 
                                 // TODO à enlever une fois la fonctionnalité est stable
                                 scaffoldState.snackbarHostState.showSnackbar(userId, null, SnackbarDuration.Short)
+                                handler.postDelayed({
+                                    navController.navigate(NavItem.Scanner.route)
+                                }, 1000)
                             } catch (e: Exception) {
                                 scaffoldState.snackbarHostState.showSnackbar("Invalid credentials", null, SnackbarDuration.Short)
                             } finally {
