@@ -168,7 +168,7 @@ fun PaymentScreen(cartViewModel: CartViewModel = viewModel(), navController: Nav
             Spacer(modifier = Modifier.width(15.dp))
 
             val cardInfo = CreditCard(cardNumber, cardOwner, cvv, expirationDate)
-//            val cardInfo = CreditCard("7254582707472229", "Florian", "084", "11/2026")
+//            val cardInfo = CreditCard("2331370179562514", "mynkie", "816", "12/2026")
             val cardInfoJsonString = Json.encodeToString(cardInfo)
 
             Button(

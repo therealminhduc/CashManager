@@ -25,7 +25,7 @@ fun NavigationGraph(navController: NavHostController, cartViewModel: CartViewMod
         }
 
         composable(NavItem.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(navController = navController, context = navController.context)
         }
 
         composable(NavItem.Cart.route) {

@@ -32,10 +32,10 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.epitech.cashmanagerinterface.common.conn.ApiClient
 import com.epitech.cashmanagerinterface.common.data.AddProductRequest
 import com.epitech.cashmanagerinterface.common.data.Product
-import com.epitech.cashmanagerinterface.common.data.ProductCodeRequest
 import com.epitech.cashmanagerinterface.features.cart.CartViewModel
 import com.epitech.cashmanagerinterface.features.productScanner.components.BarcodeScanner
 import com.epitech.cashmanagerinterface.features.productScanner.components.ProductInfoBottomSheet
@@ -84,7 +84,7 @@ import java.util.concurrent.Executors
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductScannerCameraPreview(cartViewModel: CartViewModel, scaffoldState: ScaffoldState, userId: String) {
+fun ProductScannerCameraPreview(cartViewModel: CartViewModel = viewModel(), scaffoldState: ScaffoldState, userId: String) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -115,7 +115,12 @@ fun ProductScannerCameraPreview(cartViewModel: CartViewModel, scaffoldState: Sca
             return@AndroidView previewView
         },
         modifier = Modifier
-            .animateContentSize(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow))
+            .animateContentSize(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioLowBouncy,
+                    stiffness = Spring.StiffnessLow
+                )
+            )
             .fillMaxSize(),
         update = { previewView ->
             val cameraSelector: CameraSelector = CameraSelector.Builder()
