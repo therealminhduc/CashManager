@@ -1,45 +1,71 @@
 package com.epitech.cashmanagerinterface.features.user.profile
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material.Text
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.Alignment
+import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import com.epitech.cashmanagerinterface.ui.theme.lightBlue
 import com.epitech.cashmanagerinterface.ui.theme.lightCrimson
+import com.epitech.cashmanagerinterface.ui.theme.lightWhite
+import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 import com.epitech.cashmanagerinterface.ui.theme.navGray
-
+import com.epitech.cashmanagerinterface.common.data.local.PreferenceDataStoreConstants
+import com.epitech.cashmanagerinterface.common.data.local.PreferenceDataStoreHelper
+import androidx.compose.runtime.rememberCoroutineScope
+import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ProfileScreen() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Profile") },
-                backgroundColor = navGray
-            )
-        },
-        content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                ProfileInfoSection()
+fun ProfileScreen(navController: NavController, context: Context) {
 
-                Spacer(modifier = Modifier.weight(1f))
+    val coroutineScope = rememberCoroutineScope()
+    val preferenceDataStoreHelper = PreferenceDataStoreHelper(context)
 
-                LogoutButton()
+    Scaffold(topBar = {
+        TopAppBar(
+            title = { Text("Profile") }, backgroundColor = navGray
+        )
+    }, content = {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            ProfileInfoSection()
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Button(modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(Alignment.CenterVertically)
+                .padding(horizontal = 10.dp, vertical = 50.dp),
+                shape = RoundedCornerShape(10.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = lightCrimson),
+                onClick = {
+                    coroutineScope.launch {
+                        preferenceDataStoreHelper.removePreference(PreferenceDataStoreConstants.USERID_KEY)
+                    }
+                    navController.navigate(NavItem.Login.route)
+                }) {
+                Text("Logout", style = MaterialTheme.typography.labelLarge, color = lightWhite2)
             }
         }
-    )
+    })
 }
 
 @Composable
@@ -47,43 +73,26 @@ fun ProfileInfoSection() {
     var userName by remember { mutableStateOf("User") }
     var password by remember { mutableStateOf("Password") }
 
-    Column(
+    ElevatedCard(
+        colors = CardDefaults.cardColors(
+            containerColor = lightWhite
+        ),
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(10.dp)
+            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        Text(text = "Username: $userName", fontSize = 24.sp)
-        Text(text = "Password: $password", fontSize = 24.sp)
-
-        Button(
-            onClick = { /* Action to modify information */ },
-            colors = ButtonDefaults.buttonColors(backgroundColor = lightBlue),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp)
+        Column(
+            modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text("Edit")
+            Text(
+                text = "Username: $userName",
+                style = MaterialTheme.typography.labelLarge,
+            )
+            Text(
+                text = "Password: $password",
+                style = MaterialTheme.typography.labelLarge,
+            )
         }
     }
-}
-
-@Composable
-fun LogoutButton() {
-    Button(
-        onClick = { /* Action to logout */ },
-        colors = ButtonDefaults.buttonColors(backgroundColor = lightCrimson),
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(Alignment.CenterVertically)
-            .padding(horizontal = 16.dp, vertical = 50.dp)
-    ) {
-        Text("Logout")
-    }
-}
-
-@Preview
-@Composable
-fun ProfilePreview() {
-    ProfileScreen()
 }
