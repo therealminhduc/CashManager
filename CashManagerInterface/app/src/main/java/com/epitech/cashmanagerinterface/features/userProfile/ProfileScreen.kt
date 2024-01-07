@@ -1,4 +1,4 @@
-package com.epitech.cashmanagerinterface.features.user.profile
+package com.epitech.cashmanagerinterface.features.userProfile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -9,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.epitech.cashmanagerinterface.R
 import com.epitech.cashmanagerinterface.ui.theme.navGray
 
 @Composable
