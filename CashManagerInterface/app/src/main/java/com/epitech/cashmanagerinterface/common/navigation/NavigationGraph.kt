@@ -29,11 +29,11 @@ fun NavigationGraph(navController: NavHostController, cartViewModel: CartViewMod
         }
 
         composable(NavItem.Cart.route) {
-            CartScreen(cartViewModel = cartViewModel, navController = navController)
+            CartScreen(cartViewModel = cartViewModel, navController = navController, context = navController.context)
         }
 
         composable(NavItem.Payment.route) {
-            PaymentScreen(cartViewModel = cartViewModel, navController = navController, scaffoldState = scaffoldState)
+            PaymentScreen(cartViewModel = cartViewModel, navController = navController, scaffoldState = scaffoldState, context = navController.context)
         }
 
         composable(NavItem.Login.route) {

@@ -8,6 +8,12 @@ import com.epitech.cashmanagerinterface.common.data.Product
 class CartViewModel : ViewModel() {
     private val _cartItems = mutableStateListOf<CartItem>()
     val cartItems: MutableList<CartItem> get() = _cartItems
+    fun setCart(itemList: MutableList<CartItem>) {
+        _cartItems.clear()
+        for (item in itemList) {
+            addToCart(item.product, 1)
+        }
+    }
 
     fun addToCart(product: Product, quantity: Int) {
         val existingItem = _cartItems.find { it.product == product }

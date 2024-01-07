@@ -1,6 +1,8 @@
 package com.epitech.cashmanagerinterface.features.payment
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +29,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,6 +48,8 @@ import androidx.navigation.NavController
 import com.epitech.cashmanagerinterface.common.conn.ApiClient
 import com.epitech.cashmanagerinterface.common.data.CartItem
 import com.epitech.cashmanagerinterface.common.data.CreditCard
+import com.epitech.cashmanagerinterface.common.data.local.PreferenceDataStoreConstants
+import com.epitech.cashmanagerinterface.common.data.local.PreferenceDataStoreHelper
 import com.epitech.cashmanagerinterface.common.navigation.components.TopAppBar
 import com.epitech.cashmanagerinterface.common.navigation.resources.NavItem
 import com.epitech.cashmanagerinterface.features.cart.CartViewModel
@@ -60,7 +65,7 @@ import kotlinx.serialization.json.Json
 @OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun PaymentScreen(cartViewModel: CartViewModel = viewModel(), navController: NavController, scaffoldState: ScaffoldState) {
+fun PaymentScreen(cartViewModel: CartViewModel = viewModel(), navController: NavController, scaffoldState: ScaffoldState, context: Context) {
     val cartItems: List<CartItem> = cartViewModel.getAllProductsInCart()
 
     var cardNumber by remember { mutableStateOf("") }
@@ -74,6 +79,12 @@ fun PaymentScreen(cartViewModel: CartViewModel = viewModel(), navController: Nav
 
     val apiEndpoints = remember { ApiClient.createApiEndpoints() }
     val coroutineScope = rememberCoroutineScope()
+    var userId by remember { mutableStateOf("null") }
+    val preferenceDataStoreHelper = PreferenceDataStoreHelper(context)
+
+    LaunchedEffect(Unit) {
+        userId = preferenceDataStoreHelper.getPreference(PreferenceDataStoreConstants.USERID_KEY, "null")
+    }
 
     Scaffold(
         topBar = { TopAppBar(screenName = NavItem.Payment.label) { navController.navigate(NavItem.Cart.route)} }
@@ -156,8 +167,8 @@ fun PaymentScreen(cartViewModel: CartViewModel = viewModel(), navController: Nav
 
             Spacer(modifier = Modifier.width(15.dp))
 
-//            val cardInfo = CreditCard(cardNumber, cardOwner, cvv, expirationDate)
-            val cardInfo = CreditCard("7254582707472229", "Florian", "084", "11/2026")
+            val cardInfo = CreditCard(cardNumber, cardOwner, cvv, expirationDate)
+//            val cardInfo = CreditCard("7254582707472229", "Florian", "084", "11/2026")
             val cardInfoJsonString = Json.encodeToString(cardInfo)
 
             Button(
@@ -166,14 +177,15 @@ fun PaymentScreen(cartViewModel: CartViewModel = viewModel(), navController: Nav
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = lightBlue),
                 onClick = {
+                    Log.d("Payment screen", "userId: $userId")
                     if (cardNumber.isNotEmpty() && cardOwner.isNotEmpty() && cvv.isNotEmpty() && expirationDate.isNotEmpty()) {
                         coroutineScope.launch {
                             isLoading = true
                             try {
-                                val validBasket = apiEndpoints.validateBasket(cardInfoJsonString)
+                                val validBasket = apiEndpoints.validateBasket(userId, cardInfoJsonString)
                                 scaffoldState.snackbarHostState.showSnackbar(validBasket, null, SnackbarDuration.Short)
                             } catch (e: Exception) {
-                                scaffoldState.snackbarHostState.showSnackbar("Invalid information", null, SnackbarDuration.Short)
+                                scaffoldState.snackbarHostState.showSnackbar("There was a problem with the payment", null, SnackbarDuration.Short)
                             } finally {
                                 isLoading = false
                             }

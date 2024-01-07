@@ -85,6 +85,17 @@ public class BasketService {
     return userBasket;
   }
 
+  public Basket removeAllProducts(String userId, String productCode) {
+    User user = userRepository.findById(userId).orElse(null);
+    if (user == null) {
+      return null;
+    }
+    Basket userBasket = user.getBasket();
+    userBasket.removeAllProductsWithCode(productCode);
+    basketRepository.save(userBasket);
+    return userBasket;
+  }
+
   public HttpResponse<String> validateBasket(String userId, CreditCard creditCard) throws URISyntaxException, IOException, InterruptedException {
     User user = userRepository.findById(userId).orElse(null);
     if (user == null) {

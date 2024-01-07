@@ -47,6 +47,10 @@ public class Basket {
     }
   }
 
+  public void removeAllProductsWithCode(String productCode) {
+    products.removeIf(product -> product.getCode().equals(productCode));
+  }
+
   public String getId() { return this.id; }
 
   public void setId(String id) { this.id = id; }

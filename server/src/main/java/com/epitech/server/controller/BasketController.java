@@ -3,6 +3,7 @@ package com.epitech.server.controller;
 import com.epitech.server.model.Basket;
 import com.epitech.server.payment.CreditCard;
 import com.epitech.server.service.BasketService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,6 +84,19 @@ public class BasketController  {
         @RequestBody RemoveProductRequest request) {
         String productCode = request.getProductCode();
         Basket basket = basketService.removeProduct(userId, productCode);
+        if (basket != null) {
+            return new ResponseEntity<>(basket, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{userId}/basket/products")
+    public ResponseEntity<Basket> deleteAllProductsFromBasket(
+        @PathVariable String userId,
+        @RequestBody RemoveProductRequest request) {
+        String productCode = request.getProductCode();
+        Basket basket = basketService.removeAllProducts(userId, productCode);
         if (basket != null) {
             return new ResponseEntity<>(basket, HttpStatus.OK);
         } else {

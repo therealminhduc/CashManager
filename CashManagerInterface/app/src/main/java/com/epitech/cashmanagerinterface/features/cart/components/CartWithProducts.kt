@@ -23,6 +23,8 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,14 +33,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.epitech.cashmanagerinterface.common.conn.ApiClient
+import com.epitech.cashmanagerinterface.common.data.CartItem
+import com.epitech.cashmanagerinterface.common.data.ProductCodeRequest
+import com.epitech.cashmanagerinterface.common.data.User
 import com.epitech.cashmanagerinterface.features.cart.CartViewModel
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite
 import com.epitech.cashmanagerinterface.ui.theme.lightWhite2
 import com.epitech.cashmanagerinterface.ui.theme.lightCrimson
+import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Composable
-fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
+fun CartWithProduct(cartViewModel: CartViewModel = viewModel(), userId: String) {
     val cartItems = cartViewModel.cartItems
+    val apiEndpoints = remember { ApiClient.createApiEndpoints() }
+    val coroutineScope = rememberCoroutineScope()
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -72,30 +83,29 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                                 text = cartItem.product.name,
                                 textAlign = TextAlign.Start,
                             )
-
+// Commenté car chaque doublon apparait indépendament dans la page panier pour le moment
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(5.dp),
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(color = lightWhite2)
                             ) {
-                                IconButton(
-                                    onClick = { cartViewModel.decreaseQuantity(cartItem) }
-                                ) {
-                                    Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "Remove")
-                                }
+//                                IconButton(
+//                                    onClick = { cartViewModel.decreaseQuantity(cartItem) }
+//                                ) {
+//                                    Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "Remove")
+//                                }
 
                                 Text(
                                     text = "Quantity: ${cartItem.quantity}",
                                     textAlign = TextAlign.End,
                                 )
 
-                                IconButton(
-                                    onClick = { cartViewModel.increaseQuantity(cartItem) }
-                                ) {
-                                    Icon(imageVector = Icons.Default.KeyboardArrowUp, contentDescription = "Add")
-                                }
+//                                IconButton(
+//                                    onClick = { cartViewModel.increaseQuantity(cartItem) }
+//                                ) {
+//                                    Icon(imageVector = Icons.Default.KeyboardArrowUp, contentDescription = "Add")
+//                                }
                             }
                         }
 
@@ -119,6 +129,16 @@ fun CartWithProduct(cartViewModel: CartViewModel = viewModel()) {
                                     .clip(RoundedCornerShape(10.dp))
                                     .background(color = lightCrimson),
                                 onClick = {
+                                    val productCodeRequest = ProductCodeRequest(cartItem.product.code)
+                                    val productCodeRequestToJsonString = Json.encodeToString(productCodeRequest)
+
+                                    coroutineScope.launch {
+                                        try {
+                                            apiEndpoints.deleteAllProductsWithCode(userId, productCodeRequestToJsonString)
+                                        } catch (e: Exception) {
+                                            // TODO gérer l'erreur
+                                        }
+                                    }
                                     cartViewModel.removeCartItem(cartItem)
                                 }
                             ) {
