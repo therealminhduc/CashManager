@@ -31,9 +31,9 @@ fun MainScreenView() {
         scaffoldState = scaffoldState,
         bottomBar = {
 //            for testing purposes, we comment this for now. Once login & register is stable, we bring it back
-//            if (!isLoginOrRegister) {
+            if (!isLoginOrRegister) {
                 BottomNavigationBar(navController = navController)
-//            }
+            }
         }
     ) {
         StatusBarColor(color = lightWhite)

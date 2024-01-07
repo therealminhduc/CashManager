@@ -176,7 +176,7 @@ fun LoginScreen(navController: NavController, context: Context, scaffoldState: S
                                 scaffoldState.snackbarHostState.showSnackbar(userId, null, SnackbarDuration.Short)
                                 handler.postDelayed({
                                     navController.navigate(NavItem.Scanner.route)
-                                }, 2000)
+                                }, 1000)
                             } catch (e: Exception) {
                                 scaffoldState.snackbarHostState.showSnackbar("Invalid credentials", null, SnackbarDuration.Short)
                             } finally {
