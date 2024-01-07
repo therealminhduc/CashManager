@@ -17,8 +17,7 @@ Finally, we need an interface where users can interact with it.
 - Server: Java Spring Boot
 - Interface: Kotlin Jetpack Compose
 
-
-
+![IMG_5A905468E256-1.jpeg](documentation/assets/IMG_5A905468E256-1.jpeg)
 
 Credits: 
 - Vu Minh Duc BUI
@@ -26,9 +25,6 @@ Credits:
 - Chun LAM
 - Florian AUTOUR
 - Alexandre ANDRIEUX
-
-
-![IMG_5A905468E256-1.jpeg](documentation/assets/IMG_5A905468E256-1.jpeg)
 
 This is an Epitech's project.
 
